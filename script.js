@@ -3,9 +3,30 @@
 ================================================== */
 const WHATSAPP_NUMBER = "6285781468348";
 
+/* UNICODE EMOJI CONSTANTS */
+const EMOJI = {
+  waving: "\u{1F44B}", // 👋
+  bottle: "\u{1F9E4}", // 🧴
+  money:  "\u{1F4B0}", // 💰
+  clip:   "\u{1F4CB}", // 📋
+  user:   "\u{1F464}", // 👤
+  pin:    "\u{1F4CD}", // 📍
+  truck:  "\u{1F69A}", // 🚚
+  pray:   "\u{1F64F}", // 🙏
+  sparkles: "\u{2728}",// ✨
+  note:   "\u{1F4DD}", // 📝
+  bag:    "\u{1F6CD}", // 🛍️
+  fire:   "\u{1F525}", // 🔥
+  heart:  "\u{2764}\u{FE0F}", // ❤️
+  whiteHeart: "\u{1F90D}",    // 🤍
+  crying: "\u{1F622}", // 😢
+  cart:   "\u{1F6D2}", // 🛒
+  phone:  "\u{1F4F2}"  // 📲
+};
+
 
 /* ==================================================
-   DATA PRODUK (LENGKAP DENGAN BADGE & DESKRIPSI)
+   DATA PRODUK
 ================================================== */
 const products = [
   {
@@ -17,10 +38,10 @@ const products = [
     sold:2,
     rating:"4.9",
     discount:"32%",
-    badge:"terlaris", // Opsi: "terlaris", "baru", atau ""
+    badge:"terlaris",
     image: "ameraloud.jpg",
     isSoldOut: false,
-    desc: "Aroma khas Oud manis kayu dengan sentuhan rempah lembut. Non-alkohol, tahan 12+ jam. Cocok untuk sholat dan bepergian."
+    desc: "Aroma khas Oud manis kayu dengan sentuhan rempah lembut. Non-alkohol, tahan 12+ jam. Cocok untuk sholat & majlis."
   },
   {
     id:2,
@@ -301,7 +322,7 @@ function displayProducts(list){
   const container = document.getElementById("produk");
 
   if(list.length === 0){
-    container.innerHTML = `<div class="no-result">😢<br><br>Produk tidak ditemukan.</div>`;
+    container.innerHTML = `<div class="no-result">${EMOJI.crying}<br><br>Produk tidak ditemukan.</div>`;
     return;
   }
 
@@ -310,9 +331,9 @@ function displayProducts(list){
     
     let badgeHTML = "";
     if (product.badge === "terlaris") {
-      badgeHTML = `<span class="badge-tag best">🔥 Terlaris</span>`;
+      badgeHTML = `<span class="badge-tag best">${EMOJI.fire} Terlaris</span>`;
     } else if (product.badge === "baru") {
-      badgeHTML = `<span class="badge-tag new">✨ Baru</span>`;
+      badgeHTML = `<span class="badge-tag new">${EMOJI.sparkles} Baru</span>`;
     }
 
     return `
@@ -327,7 +348,7 @@ function displayProducts(list){
           ${badgeHTML}
 
           <button class="wishlist-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleWishlist(${product.id})">
-            ${isFav ? '❤️' : '🤍'}
+            ${isFav ? EMOJI.heart : EMOJI.whiteHeart}
           </button>
         </div>
 
@@ -355,10 +376,10 @@ function displayProducts(list){
 function toggleWishlist(id) {
   if (wishlist.includes(id)) {
     wishlist = wishlist.filter(favId => favId !== id);
-    showToastText("Dihapus dari favorit 🤍");
+    showToastText(`Dihapus dari favorit ${EMOJI.whiteHeart}`);
   } else {
     wishlist.push(id);
-    showToastText("Disimpan ke favorit ❤️");
+    showToastText(`Disimpan ke favorit ${EMOJI.heart}`);
   }
   
   localStorage.setItem("najib_wishlist", JSON.stringify(wishlist));
@@ -367,14 +388,14 @@ function toggleWishlist(id) {
 
 
 /* ==================================================
-   FITUR BAGIKAN PRODUK (SHARE) WITH AUTOMATIC LINK
+   FITUR BAGIKAN PRODUK (SAFE UNICODE SHARE)
 ================================================== */
 function shareProduct(id) {
   const product = products.find(p => p.id === id);
   if (!product) return;
 
   const currentUrl = window.location.href;
-  const shareText = `Yuk cek *${product.name}* di NajibStore! ✨\n\n💰 *Harga:* ${rupiah(product.price)}\n📝 *Deskripsi:* ${product.desc}\n\n🛍️ *Beli / Lihat Katalog Lengkap:* \n${currentUrl}`;
+  const shareText = `Yuk cek *${product.name}* di NajibStore! ${EMOJI.sparkles}\n\n${EMOJI.money} *Harga:* ${rupiah(product.price)}\n${EMOJI.note} *Deskripsi:* ${product.desc}\n\n${EMOJI.bag} *Beli / Lihat Katalog Lengkap:* \n${currentUrl}`;
 
   if (navigator.share) {
     navigator.share({
@@ -447,17 +468,17 @@ function openProductModal(id){
     
     <div style="display:flex; gap:8px; margin-bottom:10px;">
       <button class="add" style="flex:1;" onclick="toggleWishlist(${product.id}); openProductModal(${product.id});">
-        ${isFav ? '❤️ Favorit Saya' : '🤍 Simpan Favorit'}
+        ${isFav ? EMOJI.heart + ' Favorit Saya' : EMOJI.whiteHeart + ' Simpan Favorit'}
       </button>
       <button class="add" style="flex:1; border-color:#25d366; color:#25d366;" onclick="shareProduct(${product.id})">
-        📲 Bagikan
+        ${EMOJI.phone} Bagikan
       </button>
     </div>
 
     ${product.isSoldOut ? `
       <button class="checkout" style="width:100%; background:#ccc; cursor:not-allowed;" disabled>Stok Habis</button>
     ` : `
-      <button class="checkout" style="width:100%;" onclick="addToCart(${product.id}); closeProductModal();">🛒 Tambah ke Keranjang</button>
+      <button class="checkout" style="width:100%;" onclick="addToCart(${product.id}); closeProductModal();">${EMOJI.cart} Tambah ke Keranjang</button>
     `}
   `;
 
@@ -528,7 +549,7 @@ function updateCart(){
   total.textContent = rupiah(totalPrice);
 
   if(cart.length === 0){
-    items.innerHTML = `<div class="empty">🛒<br><br>Keranjang kamu masih kosong.<br>Yuk pilih parfum favoritmu!</div>`;
+    items.innerHTML = `<div class="empty">${EMOJI.cart}<br><br>Keranjang kamu masih kosong.<br>Yuk pilih parfum favoritmu!</div>`;
     document.getElementById("cartForm").style.display = "none";
     return;
   }
@@ -587,7 +608,7 @@ function showToastText(msg){
 
 
 /* ==================================================
-   CHECKOUT AUTOMATIC FORM TO WHATSAPP
+   CHECKOUT AUTOMATIC FORM TO WHATSAPP (UNICODE EMOJI)
 ================================================== */
 function checkout(){
   if(cart.length === 0){
@@ -604,21 +625,21 @@ function checkout(){
     return;
   }
 
-  let message = "Halo NajibStore 👋\n\nSaya ingin memesan produk berikut:\n\n";
+  let message = `Halo NajibStore ${EMOJI.waving}\n\nSaya ingin memesan produk berikut:\n\n`;
   let total = 0;
 
   cart.forEach(item => {
     const subtotal = item.price * item.qty;
     total += subtotal;
-    message += `🧴 ${item.name}\n   Jumlah: ${item.qty}\n   Subtotal: ${rupiah(subtotal)}\n\n`;
+    message += `${EMOJI.bottle} ${item.name}\n   Jumlah: ${item.qty}\n   Subtotal: ${rupiah(subtotal)}\n\n`;
   });
 
-  message += `💰 TOTAL: ${rupiah(total)}\n\n`;
-  message += `📋 DATA PENGIRIMAN:\n`;
-  message += `👤 Nama: ${name}\n`;
-  message += `📍 Alamat: ${address}\n`;
-  message += `🚚 Pilihan Kurir: ${courier}\n\n`;
-  message += `Mohon info total ongkir dan nomor rekening pembayarannya. Terima kasih! 🙏`;
+  message += `${EMOJI.money} TOTAL: ${rupiah(total)}\n\n`;
+  message += `${EMOJI.clip} DATA PENGIRIMAN:\n`;
+  message += `${EMOJI.user} Nama: ${name}\n`;
+  message += `${EMOJI.pin} Alamat: ${address}\n`;
+  message += `${EMOJI.truck} Pilihan Kurir: ${courier}\n\n`;
+  message += `Mohon info total ongkir dan nomor rekening pembayarannya. Terima kasih! ${EMOJI.pray}`;
 
   const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
   window.open(url, "_blank");
