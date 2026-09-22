@@ -20,7 +20,7 @@ const products = [
     badge:"terlaris", // Opsi: "terlaris", "baru", atau ""
     image: "ameraloud.jpg",
     isSoldOut: false,
-    desc: "Aroma khas Oud manis kayu dengan sentuhan rempah lembut. Non-alkohol, tahan 12+ jam. Cocok untuk sholat & majlis."
+    desc: "Aroma khas Oud manis kayu dengan sentuhan rempah lembut. Non-alkohol, tahan 12+ jam. Cocok untuk sholat dan bepergian."
   },
   {
     id:2,
