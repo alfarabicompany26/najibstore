@@ -3,1006 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>NajibStore</title>
 
-<style>
-/* =========================
-   RESET
-========================= */
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Arial,
-    sans-serif;
-
-  background:#f5f5f5;
-  color:#222;
-  padding-bottom:75px;
-}
-
-button,
-input{
-  font-family:inherit;
-}
-
-
-/* =========================
-   TOP PROMO
-========================= */
-
-.top-promo{
-  background:#e21b23;
-  color:white;
-  text-align:center;
-  padding:7px 12px;
-  font-size:12px;
-  font-weight:500;
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-.header{
-  background:#e21b23;
-  padding:12px 15px 15px;
-  color:white;
-  position:sticky;
-  top:0;
-  z-index:1000;
-}
-
-.header-row{
-  max-width:1100px;
-  margin:auto;
-
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.logo{
-  font-size:21px;
-  font-weight:800;
-  white-space:nowrap;
-}
-
-.logo span{
-  color:#ffd84d;
-}
-
-.search{
-  flex:1;
-  position:relative;
-}
-
-.search input{
-  width:100%;
-  border:0;
-  outline:none;
-
-  background:white;
-  color:#222;
-
-  border-radius:8px;
-  padding:11px 42px 11px 14px;
-
-  font-size:13px;
-}
-
-.search-icon{
-  position:absolute;
-  right:13px;
-  top:8px;
-  font-size:19px;
-  color:#777;
-}
-
-.cart-button{
-  position:relative;
-
-  border:0;
-  background:transparent;
-  color:white;
-
-  font-size:25px;
-  cursor:pointer;
-
-  width:35px;
-}
-
-.cart-number{
-  position:absolute;
-
-  top:-5px;
-  right:-4px;
-
-  min-width:17px;
-  height:17px;
-
-  border-radius:20px;
-
-  background:#ffd400;
-  color:#222;
-
-  font-size:10px;
-  font-weight:bold;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-
-/* =========================
-   MAIN
-========================= */
-
-.container{
-  width:100%;
-  max-width:1100px;
-  margin:auto;
-  padding:15px;
-}
-
-
-/* =========================
-   BANNER & SLIDER
-========================= */
-
-.banner{
-  position:relative;
-  overflow:hidden;
-
-  min-height:185px;
-
-  border-radius:14px;
-
-  padding:25px;
-
-  background:
-    linear-gradient(
-      120deg,
-      #111 0%,
-      #242424 55%,
-      #8b1e28 100%
-    );
-
-  color:white;
-
-  margin-bottom:18px;
-}
-
-.banner::after{
-  content:"";
-  position:absolute;
-
-  width:230px;
-  height:230px;
-
-  border-radius:50%;
-
-  right:-80px;
-  top:-70px;
-
-  background:rgba(255,255,255,.06);
-}
-
-.banner-slider {
-  position: relative;
-  width: 100%;
-}
-
-.banner-slide {
-  display: none;
-  animation: fade 0.8s ease-in-out;
-}
-
-.banner-slide.active {
-  display: block;
-}
-
-@keyframes fade {
-  from { opacity: 0.3; transform: translateX(10px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-.banner-content{
-  position:relative;
-  z-index:2;
-
-  max-width:600px;
-}
-
-.badge{
-  display:inline-block;
-
-  background:#e21b23;
-  color:white;
-
-  padding:5px 10px;
-  border-radius:20px;
-
-  font-size:10px;
-  font-weight:bold;
-
-  margin-bottom:10px;
-}
-
-.banner h1{
-  font-size:27px;
-  line-height:1.15;
-  margin-bottom:8px;
-}
-
-.banner p{
-  color:#ddd;
-  font-size:13px;
-  line-height:1.5;
-}
-
-.banner-btn{
-  margin-top:15px;
-
-  border:0;
-  background:#ffd400;
-
-  color:#222;
-
-  padding:9px 16px;
-
-  border-radius:7px;
-
-  font-size:12px;
-  font-weight:bold;
-
-  cursor:pointer;
-}
-
-.bottle{
-  position:absolute;
-  right:35px;
-  bottom:8px;
-
-  font-size:100px;
-
-  transform:rotate(-8deg);
-
-  filter:drop-shadow(0 10px 10px rgba(0,0,0,.5));
-
-  z-index:1;
-}
-
-
-/* =========================
-   CATEGORY
-========================= */
-
-.category-section{
-  margin-bottom:20px;
-}
-
-.section-title{
-  font-size:17px;
-  font-weight:800;
-  margin-bottom:12px;
-}
-
-.categories{
-  display:flex;
-  gap:9px;
-
-  overflow-x:auto;
-
-  scrollbar-width:none;
-}
-
-.categories::-webkit-scrollbar{
-  display:none;
-}
-
-.category{
-  flex:none;
-
-  border:1px solid #ddd;
-  background:white;
-
-  padding:8px 15px;
-
-  border-radius:20px;
-
-  font-size:12px;
-
-  cursor:pointer;
-
-  transition:.2s;
-}
-
-.category.active{
-  background:#e21b23;
-  color:white;
-  border-color:#e21b23;
-}
-
-
-/* =========================
-   FLASH SALE
-========================= */
-
-.flash{
-  background:white;
-  border-radius:12px;
-
-  padding:14px;
-
-  margin-bottom:20px;
-
-  box-shadow:0 2px 7px rgba(0,0,0,.04);
-}
-
-.flash-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  margin-bottom:12px;
-}
-
-.flash-title{
-  font-size:17px;
-  font-weight:800;
-}
-
-.timer{
-  background:#222;
-  color:white;
-
-  padding:5px 8px;
-
-  border-radius:5px;
-
-  font-size:11px;
-  font-weight:bold;
-}
-
-
-/* =========================
-   PRODUCT GRID
-========================= */
-
-.products{
-  display:grid;
-
-  grid-template-columns:
-    repeat(2, minmax(0,1fr));
-
-  gap:10px;
-}
-
-.product{
-  background:white;
-
-  border-radius:10px;
-
-  overflow:hidden;
-
-  box-shadow:
-    0 2px 7px rgba(0,0,0,.05);
-
-  transition:.2s;
-
-  cursor:pointer;
-}
-
-.product:hover{
-  transform:translateY(-2px);
-}
-
-.product-image{
-  position:relative;
-
-  width:100%;
-  aspect-ratio:1 / 1;
-
-  background:#f0f0f0;
-
-  overflow:hidden;
-}
-
-.product-image img{
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-
-  display:block;
-}
-
-.discount{
-  position:absolute;
-
-  top:7px;
-  left:7px;
-
-  background:#e21b23;
-  color:white;
-
-  padding:4px 6px;
-
-  border-radius:4px;
-
-  font-size:9px;
-  font-weight:bold;
-}
-
-.product-body{
-  padding:10px;
-}
-
-.product-name{
-  font-size:13px;
-  line-height:1.35;
-
-  height:35px;
-
-  overflow:hidden;
-
-  margin-bottom:5px;
-}
-
-.price{
-  color:#e21b23;
-
-  font-size:16px;
-  font-weight:800;
-
-  margin-bottom:3px;
-}
-
-.old-price{
-  color:#999;
-
-  font-size:10px;
-
-  text-decoration:line-through;
-
-  margin-right:4px;
-}
-
-.sold{
-  color:#888;
-  font-size:10px;
-
-  margin-bottom:9px;
-}
-
-.rating{
-  color:#f5a400;
-}
-
-.add{
-  width:100%;
-
-  border:1px solid #e21b23;
-
-  background:white;
-  color:#e21b23;
-
-  padding:8px;
-
-  border-radius:6px;
-
-  font-size:11px;
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:.2s;
-}
-
-.add:hover{
-  background:#e21b23;
-  color:white;
-}
-
-
-/* =========================
-   FOOTER SOSIAL MEDIA
-========================= */
-
-.footer-social {
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  margin-top: 25px;
-  margin-bottom: 20px;
-  text-align: center;
-  box-shadow: 0 2px 7px rgba(0,0,0,.04);
-}
-
-.footer-social h3 {
-  font-size: 14px;
-  font-weight: 800;
-  margin-bottom: 12px;
-  color: #222;
-}
-
-.social-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.social-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 10px;
-  border-radius: 8px;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 12px;
-  transition: opacity 0.2s;
-}
-
-.social-btn:active {
-  opacity: 0.8;
-}
-
-.social-btn.wa {
-  background: #25d366;
-}
-
-.social-btn.ig {
-  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-}
-
-.social-btn.tiktok {
-  background: #000000;
-}
-
-.social-btn.fb {
-  background: #1877f2;
-}
-
-
-/* =========================
-   NO RESULT
-========================= */
-
-.no-result{
-  grid-column:1/-1;
-
-  text-align:center;
-
-  padding:45px 20px;
-
-  background:white;
-
-  border-radius:12px;
-
-  color:#888;
-}
-
-
-/* =========================
-   BOTTOM NAV
-========================= */
-
-.bottom-nav{
-  position:fixed;
-
-  left:0;
-  right:0;
-  bottom:0;
-
-  height:65px;
-
-  background:white;
-
-  border-top:1px solid #ddd;
-
-  display:flex;
-
-  justify-content:space-around;
-  align-items:center;
-
-  z-index:900;
-}
-
-.nav-item{
-  text-align:center;
-
-  color:#777;
-
-  font-size:10px;
-
-  cursor:pointer;
-}
-
-.nav-icon{
-  font-size:21px;
-  display:block;
-
-  margin-bottom:2px;
-}
-
-.nav-item.active{
-  color:#e21b23;
-}
-
-
-/* =========================
-   CART DRAWER
-========================= */
-
-.overlay{
-  position:fixed;
-
-  inset:0;
-
-  background:rgba(0,0,0,.5);
-
-  z-index:1500;
-
-  display:none;
-}
-
-.overlay.show{
-  display:block;
-}
-
-.cart{
-  position:fixed;
-
-  right:-430px;
-  top:0;
-  bottom:0;
-
-  width:410px;
-  max-width:94vw;
-
-  background:white;
-
-  z-index:1600;
-
-  display:flex;
-  flex-direction:column;
-
-  transition:.3s;
-
-  box-shadow:-5px 0 20px rgba(0,0,0,.2);
-}
-
-.cart.show{
-  right:0;
-}
-
-.cart-header{
-  padding:16px;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  border-bottom:1px solid #eee;
-}
-
-.cart-header h2{
-  font-size:18px;
-}
-
-.close{
-  border:0;
-  background:none;
-
-  font-size:27px;
-
-  cursor:pointer;
-}
-
-.cart-items{
-  flex:1;
-
-  overflow-y:auto;
-
-  padding:12px;
-}
-
-.empty{
-  text-align:center;
-
-  color:#999;
-
-  padding-top:70px;
-}
-
-.cart-item{
-  display:flex;
-
-  gap:10px;
-
-  padding:12px 0;
-
-  border-bottom:1px solid #eee;
-}
-
-.cart-img{
-  width:65px;
-  height:65px;
-
-  border-radius:7px;
-
-  overflow:hidden;
-
-  background:#eee;
-
-  flex:none;
-}
-
-.cart-img img{
-  width:100%;
-  height:100%;
-
-  object-fit:cover;
-}
-
-.cart-info{
-  flex:1;
-}
-
-.cart-name{
-  font-size:12px;
-
-  margin-bottom:5px;
-}
-
-.cart-price{
-  color:#e21b23;
-
-  font-size:13px;
-  font-weight:bold;
-}
-
-.qty{
-  display:flex;
-  align-items:center;
-
-  gap:9px;
-
-  margin-top:7px;
-}
-
-.qty button{
-  width:25px;
-  height:25px;
-
-  border:1px solid #ddd;
-
-  background:white;
-
-  border-radius:5px;
-
-  cursor:pointer;
-}
-
-.remove{
-  color:#e21b23;
-
-  font-size:10px;
-
-  margin-top:6px;
-
-  display:inline-block;
-
-  cursor:pointer;
-}
-
-.cart-footer{
-  padding:15px;
-
-  border-top:1px solid #eee;
-}
-
-.total{
-  display:flex;
-  justify-content:space-between;
-
-  font-size:16px;
-  font-weight:bold;
-
-  margin-bottom:12px;
-}
-
-.checkout{
-  width:100%;
-
-  border:0;
-
-  background:#25d366;
-  color:white;
-
-  padding:13px;
-
-  border-radius:8px;
-
-  font-size:14px;
-  font-weight:bold;
-
-  cursor:pointer;
-}
-
-
-/* =========================
-   TOAST
-========================= */
-
-.toast{
-  position:fixed;
-
-  left:50%;
-
-  bottom:82px;
-
-  transform:translateX(-50%) translateY(20px);
-
-  background:#222;
-  color:white;
-
-  padding:10px 15px;
-
-  border-radius:8px;
-
-  font-size:12px;
-
-  opacity:0;
-
-  pointer-events:none;
-
-  transition:.3s;
-
-  z-index:3000;
-
-  white-space:nowrap;
-}
-
-.toast.show{
-  opacity:1;
-
-  transform:
-    translateX(-50%)
-    translateY(0);
-}
-
-
-/* =========================
-   TABLET / DESKTOP
-========================= */
-
-@media(min-width:600px){
-
-  body{
-    padding-bottom:0;
-  }
-
-  .bottom-nav{
-    display:none;
-  }
-
-  .products{
-    grid-template-columns:
-      repeat(4,minmax(0,1fr));
-
-    gap:14px;
-  }
-
-  .banner{
-    min-height:230px;
-  }
-
-  .banner h1{
-    font-size:35px;
-  }
-}
-
-@media(min-width:950px){
-
-  .products{
-    grid-template-columns:
-      repeat(5,minmax(0,1fr));
-  }
-
-}
-
-
-/* =========================
-   SMALL PHONE
-========================= */
-
-@media(max-width:380px){
-
-  .logo{
-    font-size:18px;
-  }
-
-  .header-row{
-    gap:8px;
-  }
-
-  .banner{
-    min-height:175px;
-    padding:20px;
-  }
-
-  .banner h1{
-    font-size:23px;
-  }
-
-  .bottle{
-    right:10px;
-    font-size:75px;
-  }
-
-}
-</style>
+<!-- Panggil File CSS Terpisah -->
+<link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-
 <!-- =========================
-     PROMO
+     PROMO & INFO BAR (3 TOMBOL)
 ========================= -->
-
 <div class="top-promo">
-  🛍️ UNTUK OFFLINE • DATANG LANGSUNG KE MIFKHOR✅
+  <button class="btn-info-link" onclick="openAboutModal()">🏢 Tentang Toko</button>
+  <button class="btn-info-link" onclick="openAddressModal()">📍 Alamat Toko</button>
+  <button class="btn-info-link" onclick="openInfoModal()">ℹ️ Cara Order</button>
 </div>
 
 
 <!-- =========================
      HEADER
 ========================= -->
-
 <header class="header">
-
   <div class="header-row">
-
     <div class="logo">
       Najib<span>Store</span>
     </div>
 
     <div class="search">
-
       <input
         id="search"
         type="text"
         placeholder="Cari produk..."
         oninput="searchProduct()"
       >
-
-      <span class="search-icon">
-        🔍
-      </span>
-
+      <span class="search-icon">🔍</span>
     </div>
 
     <button
@@ -1010,31 +45,21 @@ input{
       onclick="openCart()"
     >
       🛒
-
       <span
         class="cart-number"
         id="cartCount"
-      >
-        0
-      </span>
-
+      >0</span>
     </button>
-
   </div>
-
 </header>
-
 
 
 <main class="container">
 
-
 <!-- =========================
      BANNER SLIDER 4 DETIK
 ========================= -->
-
 <section class="banner">
-
   <div class="banner-slider">
 
     <!-- SLIDE 1 -->
@@ -1043,7 +68,7 @@ input{
         <span class="badge">ORDER YUK 💛</span>
         <h1>Temukan Aroma<br>Favoritmu ✨</h1>
         <p>Parfum berkualitas dengan harga bersahabat. Wanginya bikin Ibadahmu khusyu dan percaya diri!</p>
-        <button class="banner-btn" onclick="document.getElementById('produk').scrollIntoView()">Belanja Sekarang →</button>
+        <button class="banner-btn" onclick="document.getElementById('produk-section').scrollIntoView()">Belanja Sekarang →</button>
       </div>
       <div class="bottle">🕌</div>
     </div>
@@ -1054,7 +79,7 @@ input{
         <span class="badge">AMAN TERPERCAYA 😎</span>
         <h1>Pasti aman Di<br>🛍️NajibStore</h1>
         <p>Berdagang dengan jujur itu anjuran nabi,dan sudah menjadi prinsip kami</p>
-        <button class="banner-btn" onclick="document.getElementById('produk').scrollIntoView()">Cek Promo →</button>
+        <button class="banner-btn" onclick="document.getElementById('produk-section').scrollIntoView()">Cek Promo →</button>
       </div>
       <div class="bottle">👍🏼</div>
     </div>
@@ -1065,1081 +90,285 @@ input{
         <span class="badge">PARFUM PREMIUM 💎</span>
         <h1>Wangi Tahan Lama<br>Hingga 24 Jam</h1>
         <p>Aroma khas Timur Tengah & Eropa non-alkohol, sangat cocok untuk ibadah.</p>
-        <button class="banner-btn" onclick="document.getElementById('produk').scrollIntoView()">Pesan Sekarang →</button>
+        <button class="banner-btn" onclick="document.getElementById('produk-section').scrollIntoView()">Pesan Sekarang →</button>
       </div>
       <div class="bottle">💥</div>
     </div>
 
   </div>
-
 </section>
-
 
 
 <!-- =========================
      CATEGORY
 ========================= -->
-
 <section class="category-section">
-
-  <div class="section-title">
-    Kategori
-  </div>
+  <div class="section-title">Kategori</div>
 
   <div class="categories">
-
-    <div
-      class="category active"
-      onclick="filterCategory('Semua',this)"
-    >
-      🛍️ Semua
-    </div>
-
-    <div
-      class="category"
-      onclick="filterCategory('Original',this)"
-    >
-      ✨Original
-    </div>
-
-    <div
-      class="category"
-      onclick="filterCategory('Premium',this)"
-    >
-      ⭐Premium
-    </div>
-
-    <div
-      class="category"
-      onclick="filterCategory('Reguler',this)"
-    >
-      🧴Reguler
-    </div>
-    
-    <div
-      class="category"
-      onclick="filterCategory('Lainnya',this)"
-    >
-      📋Lainnya 
-    </div>
-
+    <div class="category active" onclick="filterCategory('Semua',this)">🛍️ Semua</div>
+    <div class="category" onclick="filterCategory('Original',this)">✨Original</div>
+    <div class="category" onclick="filterCategory('Premium',this)">⭐Premium</div>
+    <div class="category" onclick="filterCategory('Reguler',this)">🧴Reguler</div>
+    <div class="category" onclick="filterCategory('Lainnya',this)">📋Lainnya</div>
   </div>
-
 </section>
 
 
-
 <!-- =========================
-     FLASH SALE
+     FLASH SALE & PRODUCTS
 ========================= -->
-
-<section class="flash">
-
+<section class="flash" id="produk-section">
   <div class="flash-head">
-
-    <div class="flash-title">
-      🔥 Paling Populer
-    </div>
-
-    <div class="timer">
-      02 : 15 : 48
-    </div>
-
+    <div class="flash-title">🔥 Katalog Produk</div>
+    
+    <!-- FITUR URUTKAN -->
+    <select id="sortSelect" class="sort-select" onchange="sortProducts()">
+      <option value="default">Urutkan: Default</option>
+      <option value="price-low">Harga: Termurah</option>
+      <option value="price-high">Harga: Termahal</option>
+      <option value="best-seller">Paling Laris</option>
+    </select>
   </div>
 
-  <div
-    class="products"
-    id="produk"
-  ></div>
+  <div class="products" id="produk"></div>
+</section>
 
+
+<!-- =========================
+     SEKSI ULASAN & TESTIMONI FOTO
+========================= -->
+<section class="reviews-section">
+  <div class="reviews-header">
+    <div class="reviews-title">💬 Ulasan & Foto Pembeli</div>
+    <div class="reviews-score">⭐ 4.9 / 5.0 (10+ Ulasan)</div>
+  </div>
+
+  <div class="reviews-list">
+    <!-- Ulasan 1 -->
+    <div class="review-card">
+      <div class="review-top">
+        <div class="reviewer-name">
+          M***d s**i. <span class="verified-badge">✓ Terverifikasi</span>
+        </div>
+        <div class="review-date">7 hari lalu</div>
+      </div>
+      <div class="review-stars">★★★★</div>
+      <div class="review-text">"Minyak wanginya mantap banget ngab, wanginya tahan seharian dipake sholat. Pengiriman via WA juga responsif!"</div>
+      <img src="ulasan2.jpg" alt="Foto Bukti Pembeli" class="review-img-thumb">
+      <br>
+      <div class="review-product">Membeli: HARAMAIN OUD 12ml</div>
+    </div>
+
+    <!-- Ulasan 2 -->
+    <div class="review-card">
+      <div class="review-top">
+        <div class="reviewer-name">
+          F****i M. <span class="verified-badge">✓ Terverifikasi</span>
+        </div>
+        <div class="review-date">30 hari lalu</div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"Sesuai ekspektasi! Non-alkohol dan harumnya lembut nggak bikin pusing. Rekomended belanja di NajibStore."</div>
+      <img src="ulasan1.jpg" alt="Foto Bukti Pembeli" class="review-img-thumb">
+      <br>
+      <div class="review-product">Membeli: DALAL 6ml</div>
+    </div>
+
+    <!-- Ulasan 3 -->
+    <div class="review-card">
+      <div class="review-top">
+        <div class="reviewer-name">
+          B****s K. <span class="verified-badge">✓ Terverifikasi</span>
+        </div>
+        <div class="review-date">1 bulan lalu</div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"Barang ori, dapet diskon lagi. Kaos LP-nya juga pas ukurannya. Makasih gan!"</div>
+      <img src="kaoslp.jpg" alt="Foto Bukti Pembeli" class="review-img-thumb">
+      <br>
+      <div class="review-product">Membeli: KAOS BAND METAL LINKIN PARK</div>
+    </div>
+  </div>
+
+  <a 
+    href="https://wa.me/6285781468348?text=Halo%20NajibStore!%20Saya%20mau%20kirim%20ulasan%20%26%20testimoni%20produk%20nih:%0A%0A- Nama:%20%0A- Produk yang dibeli:%20%0A- Ulasan/Kesan:%20%0A- Rating:%205/5%20⭐" 
+    target="_blank" 
+    class="btn-add-review"
+  >
+    ✍️ Tulis Ulasan / Kirim Testimoni via WhatsApp
+  </a>
 </section>
 
 
 <!-- =========================
      FOOTER SOSIAL MEDIA
 ========================= -->
-
 <section class="footer-social">
-
-  <h3>🌐 Hubungi admin & Ikuti Kami</h3>
-
+  <h3>🌐 Hubungi admin & Ikuti kami</h3>
   <div class="social-grid">
-
-    <a 
-      href="https://wa.me/6285781468348" 
-      target="_blank" 
-      class="social-btn wa"
-    >
+    <a href="https://wa.me/6285781468348" target="_blank" class="social-btn wa">
       💬 WhatsApp
     </a>
-
-    <a 
-      href="https://www.instagram.com/muhammadaisyun_?stkn=cjRyZnRseXpxbnY5" 
-      target="_blank" 
-      class="social-btn ig"
-    >
+    <a href="https://www.instagram.com/muhammadaisyun_?stkn=cjRyZnRseXpxbnY5" target="_blank" class="social-btn ig">
       📸 Instagram
     </a>
-
   </div>
-
 </section>
-
 
 </main>
 
 
-
 <!-- =========================
-     CART
+     CART DRAWER
 ========================= -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
 
-<div
-  class="overlay"
-  id="overlay"
-  onclick="closeCart()"
-></div>
-
-
-<aside
-  class="cart"
-  id="cart"
->
-
+<aside class="cart" id="cart">
   <div class="cart-header">
-
-    <h2>
-      🛒 Keranjang
-    </h2>
-
-    <button
-      class="close"
-      onclick="closeCart()"
-    >
-      ×
-    </button>
-
+    <h2>🛒 Keranjang Belanja</h2>
+    <button class="close" onclick="closeCart()">×</button>
   </div>
 
-
-  <div
-    class="cart-items"
-    id="cartItems"
-  ></div>
-
+  <div class="cart-items" id="cartItems"></div>
 
   <div class="cart-footer">
-
     <div class="total">
-
-      <span>
-        Total
-      </span>
-
-      <span id="total">
-        Rp0
-      </span>
-
+      <span>Total Pembayaran</span>
+      <span id="total">Rp0</span>
     </div>
 
-    <button
-      class="checkout"
-      onclick="checkout()"
-    >
+    <!-- FORM DATA PEMBELI -->
+    <div class="cart-form" id="cartForm">
+      <h4>📋 Data Pengiriman:</h4>
+      <input type="text" id="buyerName" placeholder="Nama Lengkap..." class="cart-input">
+      <textarea id="buyerAddress" placeholder="Alamat Lengkap (Kec, Kota, Prov)..." class="cart-input" rows="2"></textarea>
+      <select id="buyerCourier" class="cart-input">
+        <option value="J&T Express">Kurir: J&T Express (belum tersedia)</option>
+        <option value="JNE Express">Kurir: JNE (belum tersedia)</option>
+        <option value="POS Indonesia">Kurir: Lokal (opsional admin)</option>
+        <option value="Ambil Offline (MIFKHOR)">Ambil Langsung di MIFKHOR</option>
+      </select>
+    </div>
+
+    <button class="checkout" onclick="checkout()">
       💬 Checkout via WhatsApp
     </button>
-
   </div>
-
 </aside>
 
+
+<!-- =========================
+     MODAL DETAIL PRODUK
+========================= -->
+<div class="modal-overlay" id="productModal" onclick="closeProductModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeProductModal()">×</button>
+    <div id="modalDetailBody"></div>
+  </div>
+</div>
+
+
+<!-- =========================
+     MODAL TENTANG TOKO
+========================= -->
+<div class="modal-overlay" id="aboutModal" onclick="closeAboutModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeAboutModal()">×</button>
+    <h3>🏢 Tentang Toko Kami</h3>
+    <div class="info-body">
+      <p><b>Selamat Datang di 🛍️NajibStore!</b></p>
+      <p style="margin-top: 6px; color: #555;">
+        Kami menyediakan berbagai macam pilihan parfum original, premium, hingga reguler non-alkohol yang aman, harum, dan nyaman digunakan untuk ibadah maupun harian.
+      </p>
+      <hr style="margin: 10px 0; border: 0; border-top: 1px dashed #eee;">
+      <p><b>Prinsip Kami:</b><br>
+      Berdagang dengan jujur adalah anjuran Nabi, dan sudah menjadi komitmen utama kami untuk selalu memberikan pelayanan terbaik dan terpercaya bagi Anda.</p> <p><b>🛡️Resmi dikelola oleh:@muhammadaisyun_</b></p>
+    </div>
+  </div>
+</div>
+
+
+<!-- =========================
+     MODAL ALAMAT TOKO OFFLINE
+========================= -->
+<div class="modal-overlay" id="addressModal" onclick="closeAddressModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeAddressModal()">×</button>
+    <h3>📍 Alamat Toko Offline</h3>
+    <div class="info-body">
+      <p><b>🛍️ NajibStore / MIFKHOR</b></p>
+      <p style="margin-top: 6px; color: #555;">
+        Kamu bisa datang langsung ke toko offline kami untuk memilih dan mencoba varian aroma parfum secara langsung!
+      </p>
+      <hr style="margin: 10px 0; border: 0; border-top: 1px dashed #eee;">
+      <p><b>Alamat Lengkap:</b><br>
+      📌 Pondok putra • PPTQ MIFTAHUL KHOIROT, Jln. Singaperbangsa, Cilamaya Kulon, Karawang</p>
+      <br>
+      <a 
+              href="https://maps.app.goo.gl/a5gfQBpsShRjnZXj7" 
+        target="_blank" 
+        class="checkout" 
+        style="display: block; text-align: center; text-decoration: none; background: #25d366; font-size: 12px;"
+      >
+        🗺️ Buka di Google Maps
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- =========================
+     MODAL CARA ORDER & BAYAR
+========================= -->
+<div class="modal-overlay" id="infoModal" onclick="closeInfoModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeInfoModal()">×</button>
+    <h3>ℹ️ Cara Order & Pembayaran</h3>
+    <div class="info-body">
+      <ol>
+        <li>Pilih barang favoritmu, klik <b>+ Tambah ke Keranjang</b>.</li>
+        <li>Buka keranjang 🛒 di pojok kanan atas.</li>
+        <li>Isi <b>Nama</b>, <b>Alamat Lengkap</b>, dan pilih <b>Kurir</b>.</li>
+        <li>Klik tombol <b>Checkout via WhatsApp</b>.</li>
+        <li>Kirim pesan otomatis yang sudah terformat ke Admin.</li>
+      </ol>
+      <hr>
+      <p><b>Metode Pembayaran:</b></p>
+      <ul>
+        <li>💳 Transfer Bank (BCA / Mandiri / BRI)</li>
+        <li>📱 e-Wallet (QRIS / Dana / OVO / ShopeePay)</li>
+        <li>🏢 Cash / Bayar Langsung di MIFKHOR</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 
 <!-- =========================
      BOTTOM NAV
 ========================= -->
-
 <nav class="bottom-nav">
-
-  <div
-    class="nav-item active"
-    onclick="window.scrollTo({top:0,behavior:'smooth'})"
-  >
-
-    <span class="nav-icon">
-      🏠
-    </span>
-
-    Beranda
-
+  <div class="nav-item active" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <span class="nav-icon">🏠</span> Beranda
   </div>
-
-
-  <div
-    class="nav-item"
-    onclick="document.getElementById('produk').scrollIntoView({behavior:'smooth'})"
-  >
-
-    <span class="nav-icon">
-      🛍️
-    </span>
-
-    Produk
-
+  <div class="nav-item" onclick="document.getElementById('produk-section').scrollIntoView({behavior:'smooth'})">
+    <span class="nav-icon">🛍️</span> Produk
   </div>
-
-
-  <div
-    class="nav-item"
-    onclick="openCart()"
-  >
-
-    <span class="nav-icon">
-      🛒
-    </span>
-
-    Keranjang
-
+  <div class="nav-item" onclick="openCart()">
+    <span class="nav-icon">🛒</span> Keranjang
   </div>
-
 </nav>
-
 
 
 <!-- =========================
      TOAST
 ========================= -->
-
-<div
-  class="toast"
-  id="toast"
->
+<div class="toast" id="toast">
   Produk ditambahkan ke keranjang ✓
 </div>
 
-
-
-<script>
-
-/* ==================================================
-   NOMOR WHATSAPP TOKO
-================================================== */
-
-const WHATSAPP_NUMBER =
-"6285781468348";
-
-
-/* ==================================================
-   DATA PRODUK
-================================================== */
-
-const products = [
-
-  {
-    id:1,
-    name:"AMER AL-OUDH 6ml Roll on Original parfum",
-    category:"Original",
-    price:20000,
-    oldPrice:25000,
-    sold:2,
-    rating:"4.9",
-    discount:"32%",
-    image: "ameraloud.jpg",
-    isSoldOut: false
-  },
-
-  {
-    id:2,
-    name:"HARAMAIN OUD 12ml Roll on PREMIUM PARFUM",
-    category:"Premium",
-    price:25000,
-    oldPrice:30000,
-    sold:4,
-    rating:"4.9",
-    discount:"29%",
-    image: "Haramainoud.jpg",
-    isSoldOut: false
-  },
-
-  {
-    id:3,
-    name:"DALAL 6ml Roll on original parfum",
-    category:"Original",
-    price:20000,
-    oldPrice:25000,
-    sold:3,
-    rating:"4.8",
-    discount:"28%",
-    image: "DALAL.jpg",
-    isSoldOut: false
-  },
-
-  {
-    id:4,
-    name:"KASTURI KIJANG 6ml Roll on Original parfum",
-    category:"Original",
-    price:20000,
-    oldPrice:27000,
-    sold:2,
-    rating:"5.0",
-    discount:"30%",
-    image: "kasturikijang.jpg",
-    isSoldOut: false
-  },
-
-  {
-    id:5,
-    name:"BLACK OUD 6ml Roll on Original parfum",
-    category:"Original",
-    price:20000,
-    oldPrice:25000,
-    sold:1,
-    rating:"4.9",
-    discount:"29%",
-    image: "blackoud.jpg",
-    isSoldOut: false
-  },
-
-  {
-    id:6,
-    name:"Parfum Roll on 6ml Reguler (request)",
-    category:"Reguler",
-    price:12000,
-    oldPrice:15000,
-    sold:7,
-    rating:"4.9",
-    discount:"30%",
-    image: "minyak.jpg",
-    isSoldOut: false
-  },
-
-  {
-    id:7,
-    name:"KHAMRAH NOIR 12ML Roll on PREMIUM PARFUM",
-    category:"Premium",
-    price:25000,
-    oldPrice:30000,
-    sold:2,
-    rating:"4.9",
-    discount:"27%",
-    image: "khamrahnoir.jpg",
-    isSoldOut: false
-  },
-
-  {
-    id:8,
-    name:"AL HARAMAIN 6ML Roll on PREMIUM PARFUM",
-    category:"Premium",
-    price:25000,
-    oldPrice:34000,
-    sold:3,
-    rating:"4.9",
-    discount:"30%",
-    image: "alharamain.jpg",
-    isSoldOut: true
-  },
-   
-  {
-    id:9,
-    name:"RED ROSE 6ml Roll on Original parfum",
-    category:"Original",
-    price:20000,
-    oldPrice:25000,
-    sold:10,
-    rating:"5.0",
-    discount:"33%",
-    image: "redrose.jpg",
-    isSoldOut: true
-  },
-
-  {
-    id:10,
-    name:"KHAMRAH DUBAI 12ML Roll on PREMIUM parfum",
-    category:"Premium",
-    price:25000,
-    oldPrice:35000,
-    sold:5,
-    rating:"4.9",
-    discount:"25%",
-    image: "khamrahdubai.jpg",
-    isSoldOut: false
-  },
-  
-  {
-    id:11,
-    name:"MUSK MADAWI 12ML Roll on PREMIUM parfum",
-    category:"Premium",
-    price:25000,
-    oldPrice:28000,
-    sold:1,
-    rating:"4.9",
-    discount:"21%",
-    image: "muskmadawi.jpg",
-    isSoldOut: false
-  },
-
-  {
-    id:12,
-    name:"MUSK MAKKAH 6ML Roll on PREMIUM",
-    category:"Premium",
-    price:25000,
-    oldPrice:35000,
-    sold:4,
-    rating:"4.9",
-    discount:"22%",
-    image: "muskmakkah.jpg",
-    isSoldOut: true
-  },
-
-  {
-    id:13,
-    name:"HAJAR ASWAD 6Ml Roll on Original parfum",
-    category:"Reguler",
-    price:20000,
-    oldPrice:25000,
-    sold:3,
-    rating:"4.8",
-    discount:"25%",
-    image: "hajaraswad.jpg",
-    isSoldOut: true
-  },
-
-  {
-    id:14,
-    name:"BUBBLEGUM 6ML Roll on Original parfum",
-    category:"Original",
-    price:20000,
-    oldPrice:25000,
-    sold:2,
-    rating:"5.0",
-    discount:"23%",
-    image: "bubblegum.jpg",
-    isSoldOut: true
-  },
-
-  {
-    id:15,
-    name:"MISK THAHARA 6ML Roll on Original parfum",
-    category:"Original",
-    price:20000,
-    oldPrice:25000,
-    sold:2,
-    rating:"5.0",
-    discount:"23%",
-    image: "misktahara.jpg",
-    isSoldOut: true
-  },
-
-  {
-    id:16,
-    name:"BAKHOR 6ML Roll on Original parfum",
-    category:"Original",
-    price:20000,
-    oldPrice:25000,
-    sold:2,
-    rating:"5.0",
-    discount:"23%",
-    image: "bakhor.jpg",
-    isSoldOut: true
-  },
-  {
-    id:16,
-    name:"SIWAK Asli Miswak 12cm",
-    category:"Lainnya",
-    price:5000,
-    oldPrice:10000,
-    sold:2,
-    rating:"5.0",
-    discount:"23%",
-    image: "siwak.jpg",
-    isSoldOut: true
-  },
-  {
-    id:16,
-    name:"KAOS BAND METAL LINKIN PARK SIZE L",
-    category:"Lainnya",
-    price:108000,
-    oldPrice:120000,
-    sold:1,
-    rating:"5.0",
-    discount:"23%",
-    image: "kaoslp.jpg",
-    isSoldOut: true
-  },
-  
-];
-
-
-let cart = [];
-
-let currentCategory = "Semua";
-
-
-/* ==================================================
-   FORMAT RUPIAH
-================================================== */
-
-function rupiah(number){
-
-  return new Intl.NumberFormat(
-    "id-ID",
-    {
-      style:"currency",
-      currency:"IDR",
-      maximumFractionDigits:0
-    }
-  ).format(number);
-
-}
-
-
-/* ==================================================
-   TAMPILKAN PRODUK
-================================================== */
-
-function displayProducts(list){
-
-  const container =
-    document.getElementById("produk");
-
-
-  if(list.length === 0){
-
-    container.innerHTML = `
-
-      <div class="no-result">
-
-        😢
-
-        <br><br>
-
-        Produk tidak ditemukan.
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    list.map(product => `
-
-      <div class="product" ${product.isSoldOut ? 'style="opacity: 0.65;"' : ''}>
-
-        <div class="product-image">
-
-          <img
-            src="${product.image}"
-            alt="${product.name}"
-            loading="lazy"
-          >
-
-          <span class="discount" ${product.isSoldOut ? 'style="background:#666;"' : ''}>
-            ${product.isSoldOut ? 'HABIS' : '-' + product.discount}
-          </span>
-
-        </div>
-
-
-        <div class="product-body">
-
-          <div class="product-name">
-            ${product.name}
-          </div>
-
-
-          <div class="price">
-            ${rupiah(product.price)}
-          </div>
-
-
-          <div>
-
-            <span class="old-price">
-              ${rupiah(product.oldPrice)}
-            </span>
-
-          </div>
-
-
-          <div class="sold">
-
-            <span class="rating">
-              ★ ${product.rating}
-            </span>
-
-            &nbsp; • &nbsp;
-
-            ${product.sold} terjual
-
-          </div>
-
-
-          ${product.isSoldOut ? `
-            <button
-              class="add"
-              style="background:#ccc; color:#666; border-color:#ccc; cursor:not-allowed;"
-              disabled
-            >
-              Stok Habis
-            </button>
-          ` : `
-            <button
-              class="add"
-              onclick="addToCart(${product.id})"
-            >
-              + Tambah ke Keranjang
-            </button>
-          `}
-
-        </div>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-/* ==================================================
-   SEARCH
-================================================== */
-
-function searchProduct(){
-
-  const keyword =
-    document
-    .getElementById("search")
-    .value
-    .toLowerCase();
-
-
-  const result =
-    products.filter(product => {
-
-      const nameMatch =
-        product.name
-        .toLowerCase()
-        .includes(keyword);
-
-
-      const categoryMatch =
-        currentCategory === "Semua" ||
-        product.category === currentCategory;
-
-
-      return nameMatch && categoryMatch;
-
-    });
-
-
-  displayProducts(result);
-
-}
-
-
-/* ==================================================
-   FILTER
-================================================== */
-
-function filterCategory(category,element){
-
-  currentCategory = category;
-
-
-  document
-    .querySelectorAll(".category")
-    .forEach(item => {
-
-      item.classList.remove("active");
-
-    });
-
-
-  element.classList.add("active");
-
-
-  searchProduct();
-
-}
-
-
-/* ==================================================
-   ADD CART
-================================================== */
-
-function addToCart(id){
-
-  const product =
-    products.find(p => p.id === id);
-
-  if(!product || product.isSoldOut) return;
-
-
-  const existing =
-    cart.find(item => item.id === id);
-
-
-  if(existing){
-
-    existing.qty++;
-
-  }else{
-
-    cart.push({
-
-      ...product,
-
-      qty:1
-
-    });
-
-  }
-
-
-  updateCart();
-
-  showToast();
-
-}
-
-
-/* ==================================================
-   UPDATE CART
-================================================== */
-
-function updateCart(){
-
-  const count =
-    document.getElementById("cartCount");
-
-  const items =
-    document.getElementById("cartItems");
-
-  const total =
-    document.getElementById("total");
-
-
-  let totalQty = 0;
-
-  let totalPrice = 0;
-
-
-  cart.forEach(item => {
-
-    totalQty += item.qty;
-
-    totalPrice +=
-      item.price * item.qty;
-
-  });
-
-
-  count.textContent =
-    totalQty;
-
-
-  total.textContent =
-    rupiah(totalPrice);
-
-
-  if(cart.length === 0){
-
-    items.innerHTML = `
-
-      <div class="empty">
-
-        🛒
-
-        <br><br>
-
-        Keranjang kamu masih kosong.
-
-        <br>
-
-        Yuk pilih parfum favoritmu!
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  items.innerHTML =
-    cart.map(item => `
-
-      <div class="cart-item">
-
-        <div class="cart-img">
-
-          <img
-            src="${item.image}"
-            alt="${item.name}"
-          >
-
-        </div>
-
-
-        <div class="cart-info">
-
-          <div class="cart-name">
-            ${item.name}
-          </div>
-
-
-          <div class="cart-price">
-            ${rupiah(item.price)}
-          </div>
-
-
-          <div class="qty">
-
-            <button
-              onclick="changeQty(${item.id},-1)"
-            >
-              −
-            </button>
-
-            <span>
-              ${item.qty}
-            </span>
-
-            <button
-              onclick="changeQty(${item.id},1)"
-            >
-              +
-            </button>
-
-          </div>
-
-
-          <span
-            class="remove"
-            onclick="removeItem(${item.id})"
-          >
-            Hapus
-          </span>
-
-        </div>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-/* ==================================================
-   CHANGE QTY
-================================================== */
-
-function changeQty(id,amount){
-
-  const item =
-    cart.find(item => item.id === id);
-
-
-  if(!item) return;
-
-
-  item.qty += amount;
-
-
-  if(item.qty <= 0){
-
-    cart =
-      cart.filter(item => item.id !== id);
-
-  }
-
-
-  updateCart();
-
-}
-
-
-/* ==================================================
-   REMOVE
-================================================== */
-
-function removeItem(id){
-
-  cart =
-    cart.filter(item => item.id !== id);
-
-
-  updateCart();
-
-}
-
-
-/* ==================================================
-   OPEN CART
-================================================== */
-
-function openCart(){
-
-  document
-    .getElementById("cart")
-    .classList.add("show");
-
-
-  document
-    .getElementById("overlay")
-    .classList.add("show");
-
-}
-
-
-/* ==================================================
-   CLOSE CART
-================================================== */
-
-function closeCart(){
-
-  document
-    .getElementById("cart")
-    .classList.remove("show");
-
-
-  document
-    .getElementById("overlay")
-    .classList.remove("show");
-
-}
-
-
-/* ==================================================
-   TOAST
-================================================== */
-
-function showToast(){
-
-  const toast =
-    document.getElementById("toast");
-
-
-  toast.classList.add("show");
-
-
-  setTimeout(() => {
-
-    toast.classList.remove("show");
-
-  },1500);
-
-}
-
-
-/* ==================================================
-   CHECKOUT WHATSAPP
-================================================== */
-
-function checkout(){
-
-  if(cart.length === 0){
-
-    alert(
-      "Keranjang masih kosong!"
-    );
-
-    return;
-
-  }
-
-
-  let message =
-    "Halo NajibStore 👋\n\n" +
-    "Saya ingin memesan:\n\n";
-
-
-  let total = 0;
-
-
-  cart.forEach(item => {
-
-    const subtotal =
-      item.price * item.qty;
-
-
-    total += subtotal;
-
-
-    message +=
-      "🧴 " +
-      item.name +
-      "\n" +
-
-      "Jumlah: " +
-      item.qty +
-      "\n" +
-
-      "Subtotal: " +
-      rupiah(subtotal) +
-      "\n\n";
-
-  });
-
-
-  message +=
-    "💰 TOTAL: " +
-    rupiah(total) +
-    "\n\n" +
-
-    "Nama: \n" +
-    "Alamat: \n" +
-    "Catatan: \n\n" +
-
-    "Mohon info pembayaran dan pengirimannya. Terima kasih 🙏";
-
-
-  const url =
-    "https://wa.me/" +
-    WHATSAPP_NUMBER +
-    "?text=" +
-    encodeURIComponent(message);
-
-
-  window.open(
-    url,
-    "_blank"
-  );
-
-}
-
-
-/* ==================================================
-   AUTO SLIDER BANNER (4 DETIK)
-================================================== */
-
-let currentSlide = 0;
-const slides = document.querySelectorAll('.banner-slide');
-
-function nextSlide() {
-  if (slides.length === 0) return;
-  slides[currentSlide].classList.remove('active');
-  currentSlide = (currentSlide + 1) % slides.length;
-  slides[currentSlide].classList.add('active');
-}
-
-setInterval(nextSlide, 4000);
-
-
-/* ==================================================
-   INIT
-================================================== */
-
-displayProducts(products);
-
-updateCart();
-
-</script>
-
+<!-- Panggil File JavaScript Terpisah -->
+<script src="script.js"></script>
 </body>
 </html>
