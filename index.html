@@ -79,7 +79,7 @@
         <span class="badge">AMAN TERPERCAYA 😎</span>
         <h1>Pasti aman Di<br>🛍️NajibStore</h1>
         <p>Berdagang dengan jujur itu anjuran nabi,dan sudah menjadi prinsip kami</p>
-        <button class="banner-btn" onclick="document.getElementById('produk-section').scrollIntoView()">Cek Promo →</button>
+        <button class="banner-btn" onclick="document.getElementById('produk-section').scrollIntoView()">Cek Produknya →</button>
       </div>
       <div class="bottle">👍🏼</div>
     </div>
@@ -100,6 +100,86 @@
 
 
 <!-- =========================
+     DIGITAL SERVICE: KUOTA & TOP UP
+========================= -->
+<section class="digital-section" id="digital-section">
+  <div class="digital-head">
+    <div>
+      <span class="digital-kicker">⚡ LAYANAN DIGITAL</span>
+      <h2>Kuota & Top Up</h2>
+      <p>Isi pulsa/kuota dan top up e-wallet dengan mudah.</p>
+    </div>
+    <span class="digital-badge">24/7 💚</span>
+  </div>
+
+  <div class="digital-tabs">
+    <button class="digital-tab active" onclick="switchDigitalTab('kuota', this)">📱 Beli Kuota</button>
+    <button class="digital-tab" onclick="switchDigitalTab('topup', this)">💳 Top Up</button>
+  </div>
+
+  <div class="digital-panel active" id="digital-kuota">
+    <div class="digital-form-grid">
+      <label class="digital-field">
+        <span>Provider</span>
+        <select id="kuotaProvider" onchange="updateKuotaPackages()">
+          <option value="Telkomsel">Telkomsel</option>
+          <option value="Indosat">Indosat</option>
+          <option value="XL">XL / AXIS</option>
+          <option value="Tri">Tri (3)</option>
+          <option value="Smartfren">Smartfren</option>
+        </select>
+      </label>
+      <label class="digital-field">
+        <span>Nomor HP</span>
+        <input id="kuotaNumber" type="tel" inputmode="numeric" placeholder="08xxxxxxxxxx" maxlength="15">
+      </label>
+    </div>
+
+    <div class="digital-field">
+      <span>Pilih Paket</span>
+      <div class="package-grid" id="kuotaPackages"></div>
+    </div>
+
+    <button class="digital-submit" onclick="orderKuota()">📲 Pesan Kuota via WhatsApp</button>
+  </div>
+
+  <div class="digital-panel" id="digital-topup">
+    <div class="digital-form-grid">
+      <label class="digital-field">
+        <span>Jenis Top Up</span>
+        <select id="topupType">
+          <option value="DANA">DANA</option>
+          <option value="OVO">OVO</option>
+          <option value="GoPay">GoPay</option>
+          <option value="ShopeePay">ShopeePay</option>
+          <option value="Pulsa">Pulsa</option>
+        </select>
+      </label>
+      <label class="digital-field">
+        <span>Nomor Tujuan</span>
+        <input id="topupNumber" type="tel" inputmode="numeric" placeholder="08xxxxxxxxxx" maxlength="15">
+      </label>
+    </div>
+
+    <div class="digital-field">
+      <span>Pilih Nominal</span>
+      <div class="topup-grid">
+        <button class="topup-option" data-amount="10000" onclick="selectTopup(this)">Rp10.000</button>
+        <button class="topup-option" data-amount="20000" onclick="selectTopup(this)">Rp20.000</button>
+        <button class="topup-option" data-amount="25000" onclick="selectTopup(this)">Rp25.000</button>
+        <button class="topup-option" data-amount="50000" onclick="selectTopup(this)">Rp50.000</button>
+        <button class="topup-option" data-amount="100000" onclick="selectTopup(this)">Rp100.000</button>
+        <button class="topup-option" data-amount="200000" onclick="selectTopup(this)">Rp200.000</button>
+      </div>
+    </div>
+
+    <button class="digital-submit" onclick="orderTopup()">💬 Pesan Top Up via WhatsApp</button>
+  </div>
+
+  <div class="digital-note">🔒 Pesanan diproses admin. Harga akhir/biaya layanan dikonfirmasi lewat WhatsApp sebelum pembayaran.</div>
+</section>
+
+<!-- =========================
      CATEGORY
 ========================= -->
 <section class="category-section">
@@ -107,10 +187,10 @@
 
   <div class="categories">
     <div class="category active" onclick="filterCategory('Semua',this)">🛍️ Semua</div>
-    <div class="category" onclick="filterCategory('Original',this)">✨Original</div>
-    <div class="category" onclick="filterCategory('Premium',this)">⭐Premium</div>
-    <div class="category" onclick="filterCategory('Reguler',this)">🧴Reguler</div>
-    <div class="category" onclick="filterCategory('Lainnya',this)">📋Lainnya</div>
+    <div class="category" onclick="filterCategory('Original',this)">✨ Original</div>
+    <div class="category" onclick="filterCategory('Premium',this)">💎 Premium</div>
+    <div class="category" onclick="filterCategory('Reguler',this)">⭐ Reguler</div>
+    <div class="category" onclick="filterCategory('Lainnya',this)">📋 Lainnya</div>
   </div>
 </section>
 
@@ -154,7 +234,7 @@
         <div class="review-date">7 hari lalu</div>
       </div>
       <div class="review-stars">★★★★</div>
-      <div class="review-text">"Minyak wanginya mantap banget ngab, wanginya tahan seharian dipake sholat. Pengiriman via WA juga responsif!"</div>
+      <div class="review-text">"Wanginya mantap banget ngab, tahan seharian dipake sholat. Pengiriman via WA juga responsif!"</div>
       <img src="ulasan2.jpg" alt="Foto Bukti Pembeli" class="review-img-thumb">
       <br>
       <div class="review-product">Membeli: HARAMAIN OUD 12ml</div>
@@ -184,7 +264,7 @@
         <div class="review-date">1 bulan lalu</div>
       </div>
       <div class="review-stars">★★★★★</div>
-      <div class="review-text">"Barang ori, dapet diskon lagi. Kaos LP-nya juga pas ukurannya. Makasih gan!"</div>
+      <div class="review-text">"Barang ori, dapet diskon lagi. Kaos LP-nya juga pas ukurannya. Hatur nuhun gan!"</div>
       <img src="kaoslp.jpg" alt="Foto Bukti Pembeli" class="review-img-thumb">
       <br>
       <div class="review-product">Membeli: KAOS BAND METAL LINKIN PARK</div>

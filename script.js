@@ -41,7 +41,7 @@ const products = [
     badge:"terlaris",
     image: "ameraloud.jpg",
     isSoldOut: false,
-    desc: "Aroma khas Oud manis kayu dengan sentuhan rempah lembut. Non-alkohol, tahan 12+ jam. Cocok untuk sholat & majlis."
+    desc: "Aroma khas Oud manis kayu dengan sentuhan rempah lembut. Non-alkohol, tahan 12+ jam. Cocok untuk sholat dan bepergian."
   },
   {
     id:2,
@@ -83,7 +83,7 @@ const products = [
     badge:"baru",
     image: "kasturikijang.jpg",
     isSoldOut: false,
-    desc: "Minyak Kasturi Kijang murni dengan aroma tajam & berkarakter. Sangat dianjurkan untuk ibadah."
+    desc: "Minyak Kasturi Kijang murni dengan aroma tajam & berkarakter. Sangat dianjurkan untuk dipakai  beribadah."
   },
   {
     id:5,
@@ -280,6 +280,34 @@ const products = [
     image: "kaoslp.jpg",
     isSoldOut: true,
     desc: "Kaos band distro bahan katun combbed nyaman ukuran L."
+  },
+  {
+    id:19,
+    name:"Mykonos - California Club Extrait De Parfum 50ml - Default",
+    category:"Premium",
+    price:179000,
+    oldPrice:229000,
+    sold:1,
+    rating:"5.0",
+    discount:"23%",
+    badge:"",
+    image: "mykonos1.jpg",
+    isSoldOut: true,
+    desc: "Mykonos parfum yang sering dibilang goib, wanginya sangat segar dan tentu tahan lama,gas order sekarang! keburu Goib!"
+  },
+  {
+    id:20,
+    name:"Mykonos - Bonfire Vanilla Extrait de Parfum 50ml - Default",
+    category:"Premium",
+    price:149000,
+    oldPrice:229000,
+    sold:1,
+    rating:"5.0",
+    discount:"23%",
+    badge:"",
+    image: "mykonos2.jpg",
+    isSoldOut: true,
+    desc: "Mykonos parfum yang sering dibilang goib, wanginya sangat segar dan tentu tahan lama,gas order sekarang! keburu Goib!."
   }
 ];
 
@@ -647,7 +675,7 @@ function checkout(){
 
 
 /* ==================================================
-   AUTO SLIDER BANNER (4 DETIK)
+   AUTO SLIDER BANNER (5 DETIK)
 ================================================== */
 let currentSlide = 0;
 const slides = document.querySelectorAll('.banner-slide');
@@ -658,7 +686,144 @@ function nextSlide() {
   currentSlide = (currentSlide + 1) % slides.length;
   slides[currentSlide].classList.add('active');
 }
-setInterval(nextSlide, 4000);
+setInterval(nextSlide, 5000);
+
+
+
+
+/* ==================================================
+   LAYANAN DIGITAL — KUOTA & TOP UP
+================================================== */
+const kuotaPackages = {
+  "Telkomsel": [
+    {name:"Internet 3GB", price:15000},
+    {name:"Internet 8GB", price:25000},
+    {name:"Internet 15GB", price:40000},
+    {name:"Internet 25GB", price:60000}
+  ],
+  "Indosat": [
+    {name:"Internet 3GB", price:15000},
+    {name:"Internet 8GB", price:25000},
+    {name:"Internet 15GB", price:40000},
+    {name:"Internet 25GB", price:60000}
+  ],
+  "XL": [
+    {name:"Internet 3GB", price:15000},
+    {name:"Internet 8GB", price:25000},
+    {name:"Internet 15GB", price:40000},
+    {name:"Internet 25GB", price:60000}
+  ],
+  "Tri": [
+    {name:"Internet 3GB", price:15000},
+    {name:"Internet 8GB", price:25000},
+    {name:"Internet 15GB", price:40000},
+    {name:"Internet 25GB", price:60000}
+  ],
+  "Smartfren": [
+    {name:"Internet 3GB", price:15000},
+    {name:"Internet 8GB", price:25000},
+    {name:"Internet 15GB", price:40000},
+    {name:"Internet 25GB", price:60000}
+  ]
+};
+
+let selectedKuota = kuotaPackages.Telkomsel[0];
+let selectedTopupAmount = 10000;
+
+function switchDigitalTab(tab, button){
+  document.querySelectorAll(".digital-tab").forEach(btn => btn.classList.remove("active"));
+  document.querySelectorAll(".digital-panel").forEach(panel => panel.classList.remove("active"));
+  button.classList.add("active");
+  document.getElementById("digital-" + tab).classList.add("active");
+}
+
+function updateKuotaPackages(){
+  const provider = document.getElementById("kuotaProvider").value;
+  const list = kuotaPackages[provider] || [];
+  selectedKuota = list[0];
+
+  document.getElementById("kuotaPackages").innerHTML = list.map((pkg, index) => `
+    <button class="package-option ${index === 0 ? "selected" : ""}"
+      onclick="selectKuota(${index})">
+      <strong>${pkg.name}</strong>
+      <small>${rupiah(pkg.price)}</small>
+    </button>
+  `).join("");
+}
+
+function selectKuota(index){
+  const provider = document.getElementById("kuotaProvider").value;
+  const list = kuotaPackages[provider] || [];
+  if(!list[index]) return;
+
+  selectedKuota = list[index];
+  document.querySelectorAll(".package-option").forEach((el, i) => {
+    el.classList.toggle("selected", i === index);
+  });
+}
+
+function selectTopup(button){
+  selectedTopupAmount = Number(button.dataset.amount);
+  document.querySelectorAll(".topup-option").forEach(btn => btn.classList.remove("selected"));
+  button.classList.add("selected");
+}
+
+function normalizePhone(value){
+  return value.replace(/[^0-9]/g, "").trim();
+}
+
+function orderKuota(){
+  const provider = document.getElementById("kuotaProvider").value;
+  const number = normalizePhone(document.getElementById("kuotaNumber").value);
+
+  if(number.length < 10 || number.length > 15){
+    alert("Masukkan nomor HP yang valid terlebih dahulu.");
+    return;
+  }
+
+  const message =
+`Halo NajibStore 👋
+
+Saya ingin membeli KUOTA 📱
+
+Provider: ${provider}
+Nomor HP: ${number}
+Paket: ${selectedKuota.name}
+Harga paket: ${rupiah(selectedKuota.price)}
+
+Mohon konfirmasi ketersediaan, harga akhir, dan cara pembayarannya. Terima kasih 🙏`;
+
+  window.open(
+    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message),
+    "_blank"
+  );
+}
+
+function orderTopup(){
+  const type = document.getElementById("topupType").value;
+  const number = normalizePhone(document.getElementById("topupNumber").value);
+
+  if(number.length < 10 || number.length > 15){
+    alert("Masukkan nomor tujuan yang valid terlebih dahulu.");
+    return;
+  }
+
+  const message =
+`Halo NajibStore 👋
+
+Saya ingin TOP UP 💳
+
+Layanan: ${type}
+Nomor tujuan: ${number}
+Nominal: ${rupiah(selectedTopupAmount)}
+
+Mohon konfirmasi biaya layanan, total pembayaran, dan proses top up. Terima kasih 🙏`;
+
+  window.open(
+    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message),
+    "_blank"
+  );
+}
 
 
 /* ==================================================
@@ -666,6 +831,8 @@ setInterval(nextSlide, 4000);
 ================================================== */
 displayProducts(products);
 updateCart();
+updateKuotaPackages();
+document.querySelector(".topup-option")?.classList.add("selected");
 
 
 /* ==================================================
