@@ -285,28 +285,28 @@ const products = [
     id:19,
     name:"Mykonos - California Club Extrait De Parfum 50ml - Default",
     category:"Premium",
-    price:179000,
-    oldPrice:229000,
+    price:220000,
+    oldPrice:309000,
     sold:1,
     rating:"5.0",
     discount:"23%",
     badge:"",
     image: "mykonos1.jpg",
-    isSoldOut: true,
+    isSoldOut: false,
     desc: "Mykonos parfum yang sering dibilang goib, wanginya sangat segar dan tentu tahan lama,gas order sekarang! keburu Goib!"
   },
   {
     id:20,
     name:"Mykonos - Bonfire Vanilla Extrait de Parfum 50ml - Default",
     category:"Premium",
-    price:149000,
+    price:159000,
     oldPrice:229000,
     sold:1,
     rating:"5.0",
     discount:"23%",
     badge:"",
     image: "mykonos2.jpg",
-    isSoldOut: true,
+    isSoldOut: false,
     desc: "Mykonos parfum yang sering dibilang goib, wanginya sangat segar dan tentu tahan lama,gas order sekarang! keburu Goib!."
   }
 ];
@@ -692,147 +692,41 @@ setInterval(nextSlide, 5000);
 
 
 /* ==================================================
-   LAYANAN DIGITAL — KUOTA & TOP UP
+   LAYANAN DIGITAL — KUOTA & GAME TOP UP
 ================================================== */
 const kuotaPackages = {
-  "Telkomsel": [
-    {name:"Internet 3GB", price:15000},
-    {name:"Internet 8GB", price:25000},
-    {name:"Internet 15GB", price:40000},
-    {name:"Internet 25GB", price:60000}
-  ],
-  "Indosat": [
-    {name:"Internet 3GB", price:15000},
-    {name:"Internet 8GB", price:25000},
-    {name:"Internet 15GB", price:40000},
-    {name:"Internet 25GB", price:60000}
-  ],
-  "XL": [
-    {name:"Internet 3GB", price:15000},
-    {name:"Internet 8GB", price:25000},
-    {name:"Internet 15GB", price:40000},
-    {name:"Internet 25GB", price:60000}
-  ],
-  "Tri": [
-    {name:"Internet 3GB", price:15000},
-    {name:"Internet 8GB", price:25000},
-    {name:"Internet 15GB", price:40000},
-    {name:"Internet 25GB", price:60000}
-  ],
-  "Smartfren": [
-    {name:"Internet 3GB", price:15000},
-    {name:"Internet 8GB", price:25000},
-    {name:"Internet 15GB", price:40000},
-    {name:"Internet 25GB", price:60000}
-  ]
+  Telkomsel:[{name:"Internet 3GB",price:15000},{name:"Internet 8GB",price:25000},{name:"Internet 15GB",price:40000},{name:"Internet 25GB",price:60000}],
+  Indosat:[{name:"Internet 3GB",price:15000},{name:"Internet 8GB",price:25000},{name:"Internet 15GB",price:40000},{name:"Internet 25GB",price:60000}],
+  XL:[{name:"Internet 3GB",price:15000},{name:"Internet 8GB",price:25000},{name:"Internet 15GB",price:40000},{name:"Internet 25GB",price:60000}],
+  Tri:[{name:"Internet 3GB",price:15000},{name:"Internet 8GB",price:25000},{name:"Internet 15GB",price:40000},{name:"Internet 25GB",price:60000}],
+  Smartfren:[{name:"Internet 3GB",price:15000},{name:"Internet 8GB",price:25000},{name:"Internet 15GB",price:40000},{name:"Internet 25GB",price:60000}]
 };
-
-let selectedKuota = kuotaPackages.Telkomsel[0];
-let selectedTopupAmount = 10000;
-
-function switchDigitalTab(tab, button){
-  document.querySelectorAll(".digital-tab").forEach(btn => btn.classList.remove("active"));
-  document.querySelectorAll(".digital-panel").forEach(panel => panel.classList.remove("active"));
-  button.classList.add("active");
-  document.getElementById("digital-" + tab).classList.add("active");
-}
-
-function updateKuotaPackages(){
-  const provider = document.getElementById("kuotaProvider").value;
-  const list = kuotaPackages[provider] || [];
-  selectedKuota = list[0];
-
-  document.getElementById("kuotaPackages").innerHTML = list.map((pkg, index) => `
-    <button class="package-option ${index === 0 ? "selected" : ""}"
-      onclick="selectKuota(${index})">
-      <strong>${pkg.name}</strong>
-      <small>${rupiah(pkg.price)}</small>
-    </button>
-  `).join("");
-}
-
-function selectKuota(index){
-  const provider = document.getElementById("kuotaProvider").value;
-  const list = kuotaPackages[provider] || [];
-  if(!list[index]) return;
-
-  selectedKuota = list[index];
-  document.querySelectorAll(".package-option").forEach((el, i) => {
-    el.classList.toggle("selected", i === index);
-  });
-}
-
-function selectTopup(button){
-  selectedTopupAmount = Number(button.dataset.amount);
-  document.querySelectorAll(".topup-option").forEach(btn => btn.classList.remove("selected"));
-  button.classList.add("selected");
-}
-
-function normalizePhone(value){
-  return value.replace(/[^0-9]/g, "").trim();
-}
-
-function orderKuota(){
-  const provider = document.getElementById("kuotaProvider").value;
-  const number = normalizePhone(document.getElementById("kuotaNumber").value);
-
-  if(number.length < 10 || number.length > 15){
-    alert("Masukkan nomor HP yang valid terlebih dahulu.");
-    return;
-  }
-
-  const message =
-`Halo NajibStore 👋
-
-Saya ingin membeli KUOTA 📱
-
-Provider: ${provider}
-Nomor HP: ${number}
-Paket: ${selectedKuota.name}
-Harga paket: ${rupiah(selectedKuota.price)}
-
-Mohon konfirmasi ketersediaan, harga akhir, dan cara pembayarannya. Terima kasih 🙏`;
-
-  window.open(
-    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message),
-    "_blank"
-  );
-}
-
-function orderTopup(){
-  const type = document.getElementById("topupType").value;
-  const number = normalizePhone(document.getElementById("topupNumber").value);
-
-  if(number.length < 10 || number.length > 15){
-    alert("Masukkan nomor tujuan yang valid terlebih dahulu.");
-    return;
-  }
-
-  const message =
-`Halo NajibStore 👋
-
-Saya ingin TOP UP 💳
-
-Layanan: ${type}
-Nomor tujuan: ${number}
-Nominal: ${rupiah(selectedTopupAmount)}
-
-Mohon konfirmasi biaya layanan, total pembayaran, dan proses top up. Terima kasih 🙏`;
-
-  window.open(
-    "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message),
-    "_blank"
-  );
-}
-
-
+const gameTopupPackages = {
+  "Mobile Legends":[{name:"86 Diamonds",price:25000},{name:"172 Diamonds",price:49000},{name:"257 Diamonds",price:72000},{name:"344 Diamonds",price:95000}],
+  "Free Fire":[{name:"70 Diamonds",price:10000},{name:"140 Diamonds",price:20000},{name:"355 Diamonds",price:50000},{name:"720 Diamonds",price:100000}],
+  "PUBG Mobile":[{name:"60 UC",price:15000},{name:"325 UC",price:70000},{name:"660 UC",price:135000},{name:"1800 UC",price:350000}],
+  "Clash of Clans":[{name:"Gold Pass",price:90000},{name:"Gems 500",price:75000},{name:"Gems 1200",price:160000},{name:"Gems 2500",price:320000}],
+  "Honor of Kings":[{name:"80 Tokens",price:15000},{name:"240 Tokens",price:45000},{name:"500 Tokens",price:90000},{name:"1000 Tokens",price:175000}],
+  "Roblox":[{name:"80 Robux",price:15000},{name:"400 Robux",price:70000},{name:"800 Robux",price:135000},{name:"1700 Robux",price:270000}]
+};
+const gameIcons={"Mobile Legends":"⚔️","Free Fire":"🔥","PUBG Mobile":"🔫","Clash of Clans":"🏰","Honor of Kings":"👑","Roblox":"🧱"};
+let selectedKuota=kuotaPackages.Telkomsel[0];
+let selectedGame="Mobile Legends";
+let selectedGamePackage=gameTopupPackages[selectedGame][0];
+function switchDigitalTab(tab,button){document.querySelectorAll(".digital-tab").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".digital-panel").forEach(p=>p.classList.remove("active"));button.classList.add("active");document.getElementById("digital-"+tab).classList.add("active");}
+function updateKuotaPackages(){const provider=document.getElementById("kuotaProvider").value,list=kuotaPackages[provider]||[];selectedKuota=list[0];document.getElementById("kuotaPackages").innerHTML=list.map((pkg,i)=>`<button type="button" class="package-option ${i===0?"selected":""}" onclick="selectKuota(${i})"><strong>${pkg.name}</strong><small>${rupiah(pkg.price)}</small></button>`).join("");}
+function selectKuota(index){const list=kuotaPackages[document.getElementById("kuotaProvider").value]||[];if(!list[index])return;selectedKuota=list[index];document.querySelectorAll("#kuotaPackages .package-option").forEach((el,i)=>el.classList.toggle("selected",i===index));}
+function renderGameList(){const c=document.getElementById("gameList");if(!c)return;c.innerHTML=Object.keys(gameTopupPackages).map(game=>`<button type="button" class="game-option ${game===selectedGame?"selected":""}" onclick='selectGame(${JSON.stringify(game)})'><span class="game-icon">${gameIcons[game]||"🎮"}</span><span>${game}</span></button>`).join("");}
+function renderGamePackages(){const list=gameTopupPackages[selectedGame]||[];selectedGamePackage=list[0];const c=document.getElementById("gamePackages");if(!c)return;c.innerHTML=list.map((pkg,i)=>`<button type="button" class="package-option ${i===0?"selected":""}" onclick="selectGamePackage(${i})"><strong>${pkg.name}</strong><small>${rupiah(pkg.price)}</small></button>`).join("");const sf=document.getElementById("gameServerField"),si=document.getElementById("gameServerId"),label=document.getElementById("gameUserLabel"),ui=document.getElementById("gameUserId");if(selectedGame==="Mobile Legends"){sf.style.display="block";label.textContent="User ID";ui.placeholder="Masukkan User ID ML";si.placeholder="Masukkan Server ID";}else if(selectedGame==="Clash of Clans"){sf.style.display="none";label.textContent="Player Tag / ID";ui.placeholder="Contoh: #ABC123";si.value="";}else{sf.style.display="none";label.textContent="User ID / Player ID";ui.placeholder="Masukkan User ID";si.value="";}}
+function selectGame(game){if(!gameTopupPackages[game])return;selectedGame=game;renderGameList();renderGamePackages();document.getElementById("gameUserId").value="";document.getElementById("gameServerId").value="";}
+function selectGamePackage(index){const list=gameTopupPackages[selectedGame]||[];if(!list[index])return;selectedGamePackage=list[index];document.querySelectorAll("#gamePackages .package-option").forEach((el,i)=>el.classList.toggle("selected",i===index));}
+function normalizePhone(value){return value.replace(/[^0-9]/g,"").trim();}
+function orderKuota(){const provider=document.getElementById("kuotaProvider").value,number=normalizePhone(document.getElementById("kuotaNumber").value);if(number.length<10||number.length>15){alert("Masukkan nomor HP yang valid terlebih dahulu.");return;}const message=`Halo NajibStore 👋\n\nSaya ingin membeli KUOTA 📱\n\nProvider: ${provider}\nNomor HP: ${number}\nPaket: ${selectedKuota.name}\nHarga paket: ${rupiah(selectedKuota.price)}\n\nMohon konfirmasi ketersediaan, harga akhir, dan cara pembayarannya. Terima kasih 🙏`;window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");}
+function orderGameTopup(){const userId=document.getElementById("gameUserId").value.trim(),serverId=document.getElementById("gameServerId").value.trim();if(!userId){alert("Masukkan User ID / Player ID terlebih dahulu.");document.getElementById("gameUserId").focus();return;}if(selectedGame==="Mobile Legends"&&!serverId){alert("Masukkan Server ID Mobile Legends terlebih dahulu.");document.getElementById("gameServerId").focus();return;}const idLine=selectedGame==="Mobile Legends"?`Server ID: ${serverId}`:selectedGame==="Clash of Clans"?"Player Tag / ID: "+userId:"Player ID: "+userId;const message=`Halo NajibStore 👋\n\nSaya ingin TOP UP GAME 🎮\n\nGame: ${selectedGame}\nUser ID / Player ID: ${userId}\n${idLine}\n\nNominal: ${selectedGamePackage.name}\nHarga: ${rupiah(selectedGamePackage.price)}\n\nMohon konfirmasi ketersediaan, harga akhir, dan cara pembayarannya. Terima kasih 🙏`;window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");}
 /* ==================================================
    INIT
 ================================================== */
-displayProducts(products);
-updateCart();
-updateKuotaPackages();
-document.querySelector(".topup-option")?.classList.add("selected");
+displayProducts(products);updateCart();updateKuotaPackages();renderGameList();renderGamePackages();
 
 
 /* ==================================================
@@ -869,3 +763,144 @@ function closeAboutModal(){
 function closeAboutModalOutside(e){
   if(e.target.id === "aboutModal") closeAboutModal();
 }
+
+
+/* ==================================================
+   SMART SHOPPING — VOUCHER, WISHLIST PRO & REKOMENDASI
+================================================== */
+const voucherList = {
+  MIFKHOR48: {type:"percent", value:10, min:50000, maxDiscount:2000, label:"Diskon 10% (maks. Rp2.000)"},
+  NAJIBSTORE26: {type:"percent", value:15, min:200000, maxDiscount:10000, label:"Diskon 15% (maks. Rp10.000)"},
+  ONGKIR0: {type:"fixed", value:10000, min:100000, maxDiscount:10000, label:"Potongan Rp10.000"}
+};
+let activeVoucher = null;
+let orderHistory = JSON.parse(localStorage.getItem("najib_orders")) || [];
+
+function getCartSubtotal(){ return cart.reduce((sum,item)=>sum + (item.price * item.qty), 0); }
+function getVoucherDiscount(subtotal){
+  if(!activeVoucher || subtotal < activeVoucher.min) return 0;
+  if(activeVoucher.type === "percent") return Math.min(Math.round(subtotal * activeVoucher.value / 100), activeVoucher.maxDiscount || Infinity);
+  return Math.min(activeVoucher.value, subtotal);
+}
+function applyVoucher(){
+  const input=document.getElementById("voucherInput");
+  const result=document.getElementById("voucherResult");
+  const code=(input.value||"").trim().toUpperCase();
+  const voucher=voucherList[code];
+  const subtotal=getCartSubtotal();
+  if(!code){ result.textContent="Masukkan kode voucher dulu."; result.className="voucher-result error"; return; }
+  if(!voucher){ activeVoucher=null; result.textContent="Kode voucher tidak ditemukan."; result.className="voucher-result error"; updateCart(); return; }
+  if(subtotal < voucher.min){ activeVoucher=null; result.textContent=`Minimal belanja ${rupiah(voucher.min)}.`; result.className="voucher-result error"; updateCart(); return; }
+  activeVoucher={...voucher, code};
+  result.textContent=`✓ ${voucher.label} berhasil dipakai.`; result.className="voucher-result success";
+  updateCart();
+}
+
+function renderRecommendations(){
+  const c=document.getElementById("recommendProducts");
+  if(!c) return;
+  const favProducts=products.filter(p=>wishlist.includes(p.id) && !p.isSoldOut);
+  const source=favProducts.length ? favProducts : products.filter(p=>!p.isSoldOut).slice().sort((a,b)=>b.sold-a.sold);
+  const pool=[];
+  source.forEach(p=>{ if(!pool.some(x=>x.id===p.id)) pool.push(p); });
+  products.filter(p=>!p.isSoldOut && !pool.some(x=>x.id===p.id)).slice(0,6).forEach(p=>pool.push(p));
+  c.innerHTML=pool.slice(0,6).map(p=>{
+    const fav=wishlist.includes(p.id);
+    return `<div class="product recommendation-card" onclick="openProductModal(${p.id})">
+      <div class="product-image"><img src="${p.image}" alt="${p.name}" loading="lazy"><span class="discount">-${p.discount}</span>
+      <button class="wishlist-btn ${fav?'active':''}" onclick="event.stopPropagation();toggleWishlist(${p.id})">${fav?EMOJI.heart:EMOJI.whiteHeart}</button></div>
+      <div class="product-body"><div class="product-name">${p.name}</div><div class="price">${rupiah(p.price)}</div><div class="sold"><span class="rating">★ ${p.rating}</span> • ${p.sold} terjual</div><button class="add" onclick="event.stopPropagation();addToCart(${p.id})">+ Tambah</button></div>
+    </div>`;
+  }).join("");
+}
+function renderWishlistModal(){
+  const c=document.getElementById("wishlistModalBody");
+  const fav=products.filter(p=>wishlist.includes(p.id));
+  const count=document.getElementById("wishlistCountText");
+  if(count) count.textContent=`${fav.length} produk tersimpan`;
+  if(!c) return;
+  if(!fav.length){ c.innerHTML=`<div class="wishlist-empty">❤️<br><b>Wishlist masih kosong</b><small>Tekan ❤️ pada produk yang kamu suka.</small></div>`; return; }
+  c.innerHTML=`<div class="wishlist-grid">${fav.map(p=>`<div class="wishlist-item">
+    <img src="${p.image}" alt="${p.name}"><div class="wishlist-info"><b>${p.name}</b><strong>${rupiah(p.price)}</strong><small>${p.isSoldOut?'Stok habis':'★ '+p.rating+' • '+p.sold+' terjual'}</small>
+    <div class="wishlist-actions"><button onclick="openProductModal(${p.id})">Lihat</button>${p.isSoldOut?'':'<button onclick="addToCart('+p.id+')">+ Keranjang</button>'}<button class="danger" onclick="toggleWishlist('+p.id+');renderWishlistModal()">Hapus</button></div></div></div>`).join("")}</div>`;
+}
+function openWishlistModal(){ renderWishlistModal(); document.getElementById("wishlistModal").classList.add("show"); checkLockScroll(); }
+function closeWishlistModal(){ document.getElementById("wishlistModal").classList.remove("show"); checkLockScroll(); }
+function closeWishlistModalOutside(e){ if(e.target.id==="wishlistModal") closeWishlistModal(); }
+function scrollToRecommendations(){ document.getElementById("recommendSection")?.scrollIntoView({behavior:"smooth"}); }
+
+/* Wishlist override: update every smart component too */
+const _toggleWishlistOriginal=toggleWishlist;
+toggleWishlist=function(id){ _toggleWishlistOriginal(id); renderRecommendations(); renderWishlistModal(); };
+
+/* ==================================================
+   TRACKING PESANAN LOKAL
+================================================== */
+function makeOrderCode(){ return "NS-"+Math.random().toString(36).slice(2,8).toUpperCase(); }
+function saveOrderForTracking(code,total){
+  const order={code,total,status:"Menunggu Konfirmasi",createdAt:new Date().toISOString()};
+  orderHistory.unshift(order); orderHistory=orderHistory.slice(0,10); localStorage.setItem("najib_orders",JSON.stringify(orderHistory)); return order;
+}
+function openTrackingModal(){ document.getElementById("trackingModal").classList.add("show"); checkLockScroll(); const latest=orderHistory[0]; if(latest){document.getElementById("trackingCodeInput").value=latest.code; trackOrder();} }
+function closeTrackingModal(){ document.getElementById("trackingModal").classList.remove("show"); checkLockScroll(); }
+function closeTrackingModalOutside(e){ if(e.target.id==="trackingModal") closeTrackingModal(); }
+function trackOrder(){
+  const code=(document.getElementById("trackingCodeInput").value||"").trim().toUpperCase();
+  const result=document.getElementById("trackingResult"); const order=orderHistory.find(o=>o.code===code);
+  if(!order){ result.innerHTML=`<div class="tracking-empty">❓ Kode pesanan tidak ditemukan di perangkat ini.</div>`; return; }
+  result.innerHTML=`<div class="tracking-card"><div class="tracking-code">${order.code}</div><div class="tracking-status">🟡 ${order.status}</div><p>Total pesanan: <b>${rupiah(order.total)}</b></p><small>Dibuat: ${new Date(order.createdAt).toLocaleString('id-ID')}</small><div class="tracking-steps"><span class="done">✓ Pesanan dibuat</span><span class="current">● Menunggu konfirmasi admin</span><span>○ Diproses</span><span>○ Dikirim / selesai</span></div></div>`;
+}
+
+/* ==================================================
+   CHECKOUT OVERRIDE — VOUCHER + PAYMENT + TRACKING
+================================================== */
+function checkout(){
+  if(cart.length===0){alert("Keranjang masih kosong!");return;}
+  const name=document.getElementById("buyerName").value.trim();
+  const address=document.getElementById("buyerAddress").value.trim();
+  const courier=document.getElementById("buyerCourier").value;
+  const payment=document.getElementById("buyerPayment").value;
+  if(!name||!address){alert("Mohon isi Nama Lengkap dan Alamat Pengiriman terlebih dahulu!");return;}
+  const subtotal=getCartSubtotal(); const discount=getVoucherDiscount(subtotal); const total=Math.max(0,subtotal-discount); const code=makeOrderCode();
+  saveOrderForTracking(code,total);
+  let message=`Halo NajibStore ${EMOJI.waving}\n\nSaya ingin memesan produk berikut:\n\n`;
+  cart.forEach(item=>{message+=`${EMOJI.bottle} ${item.name}\n   Jumlah: ${item.qty}\n   Subtotal: ${rupiah(item.price*item.qty)}\n\n`;});
+  message+=`${EMOJI.money} SUBTOTAL: ${rupiah(subtotal)}\n`;
+  if(discount>0) message+=`🎟️ VOUCHER ${activeVoucher.code}: -${rupiah(discount)}\n`;
+  message+=`${EMOJI.money} TOTAL: ${rupiah(total)}\n\n${EMOJI.clip} DATA PENGIRIMAN:\n${EMOJI.user} Nama: ${name}\n${EMOJI.pin} Alamat: ${address}\n${EMOJI.truck} Kurir: ${courier}\n💳 Pembayaran: ${payment}\n📦 Kode Pesanan: ${code}\n\nMohon konfirmasi pesanan dan detail pembayaran. Terima kasih! ${EMOJI.pray}`;
+  window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");
+}
+
+/* ==================================================
+   UPDATE CART — TAMPILKAN DISKON VOUCHER
+================================================== */
+const _updateCartOriginal=updateCart;
+updateCart=function(){
+  _updateCartOriginal();
+  const subtotal=getCartSubtotal();
+  const discount=getVoucherDiscount(subtotal);
+  const totalEl=document.getElementById("total");
+  if(totalEl) totalEl.textContent=rupiah(Math.max(0,subtotal-discount));
+  const line=document.getElementById("discountLine");
+  const amount=document.getElementById("discountAmount");
+  if(line&&amount){ line.style.display=discount>0?"flex":"none"; amount.textContent="-"+rupiah(discount); }
+};
+
+/* ==================================================
+   PAYMENT INFO — LOCAL FRONTEND ONLY
+================================================== */
+function updatePaymentInfo(){}
+
+/* init smart features */
+setTimeout(()=>{renderRecommendations();renderWishlistModal();},0);
+
+
+/* ==================================================
+   IKLAN PRODUK — 2 SLIDE
+================================================== */
+let productAdIndex=0;
+function renderProductAd(i){const slides=document.querySelectorAll('.product-ad-slide'),dots=document.querySelectorAll('.product-ad-dot');if(!slides.length)return;productAdIndex=(i+slides.length)%slides.length;slides.forEach((x,n)=>x.classList.toggle('active',n===productAdIndex));dots.forEach((x,n)=>x.classList.toggle('active',n===productAdIndex));}
+function changeProductAd(step){renderProductAd(productAdIndex+step)}
+function goProductAd(i){renderProductAd(i)}
+function openFeaturedProduct(id){openProductModal(id)}
+setInterval(()=>changeProductAd(1),5000);

@@ -100,83 +100,76 @@
 
 
 <!-- =========================
-     DIGITAL SERVICE: KUOTA & TOP UP
+     DIGITAL SERVICE: KUOTA & GAME TOP UP
 ========================= -->
 <section class="digital-section" id="digital-section">
   <div class="digital-head">
     <div>
       <span class="digital-kicker">⚡ LAYANAN DIGITAL</span>
-      <h2>Kuota & Top Up</h2>
-      <p>Isi pulsa/kuota dan top up e-wallet dengan mudah.</p>
+      <h2>Kuota & Top Up Games</h2>
+      <p>Beli paket kuota atau top up game favoritmu dengan cepat.</p>
     </div>
-    <span class="digital-badge">24/7 💚</span>
+    <span class="digital-badge">🕑 24 JAM ON</span>
   </div>
-
   <div class="digital-tabs">
     <button class="digital-tab active" onclick="switchDigitalTab('kuota', this)">📱 Beli Kuota</button>
-    <button class="digital-tab" onclick="switchDigitalTab('topup', this)">💳 Top Up</button>
+    <button class="digital-tab" onclick="switchDigitalTab('game', this)">🎮 Top Up Game</button>
   </div>
-
   <div class="digital-panel active" id="digital-kuota">
     <div class="digital-form-grid">
-      <label class="digital-field">
-        <span>Provider</span>
-        <select id="kuotaProvider" onchange="updateKuotaPackages()">
-          <option value="Telkomsel">Telkomsel</option>
-          <option value="Indosat">Indosat</option>
-          <option value="XL">XL / AXIS</option>
-          <option value="Tri">Tri (3)</option>
-          <option value="Smartfren">Smartfren</option>
-        </select>
-      </label>
-      <label class="digital-field">
-        <span>Nomor HP</span>
-        <input id="kuotaNumber" type="tel" inputmode="numeric" placeholder="08xxxxxxxxxx" maxlength="15">
-      </label>
+      <label class="digital-field"><span>Provider</span><select id="kuotaProvider" onchange="updateKuotaPackages()"><option value="Telkomsel">Telkomsel</option><option value="Indosat">Indosat</option><option value="XL">XL / AXIS</option><option value="Tri">Tri (3)</option><option value="Smartfren">Smartfren</option></select></label>
+      <label class="digital-field"><span>Nomor HP</span><input id="kuotaNumber" type="tel" inputmode="numeric" placeholder="08xxxxxxxxxx" maxlength="15"></label>
     </div>
-
-    <div class="digital-field">
-      <span>Pilih Paket</span>
-      <div class="package-grid" id="kuotaPackages"></div>
-    </div>
-
-    <button class="digital-submit" onclick="orderKuota()">📲 Pesan Kuota via WhatsApp</button>
+    <div class="digital-field"><span>Pilih Paket</span><div class="package-grid" id="kuotaPackages"></div></div>
+    <button class="digital-submit" onclick="orderKuota()">💬 Pesan Kuota via WhatsApp</button>
   </div>
-
-  <div class="digital-panel" id="digital-topup">
-    <div class="digital-form-grid">
-      <label class="digital-field">
-        <span>Jenis Top Up</span>
-        <select id="topupType">
-          <option value="DANA">DANA</option>
-          <option value="OVO">OVO</option>
-          <option value="GoPay">GoPay</option>
-          <option value="ShopeePay">ShopeePay</option>
-          <option value="Pulsa">Pulsa</option>
-        </select>
-      </label>
-      <label class="digital-field">
-        <span>Nomor Tujuan</span>
-        <input id="topupNumber" type="tel" inputmode="numeric" placeholder="08xxxxxxxxxx" maxlength="15">
-      </label>
+  <div class="digital-panel" id="digital-game">
+    <div class="game-grid" id="gameList"></div>
+    <div class="digital-form-grid game-form-grid">
+      <label class="digital-field"><span id="gameUserLabel">User ID / Player ID</span><input id="gameUserId" type="text" placeholder="Masukkan User ID"></label>
+      <label class="digital-field" id="gameServerField"><span>Server ID</span><input id="gameServerId" type="text" placeholder="Contoh: 1234"></label>
     </div>
+    <div class="digital-field"><span>Pilih Nominal</span><div class="topup-grid" id="gamePackages"></div></div>
+    <button class="digital-submit" onclick="orderGameTopup()">🎮 Pesan Top Up Game via WhatsApp</button>
+  </div>
+  <div class="digital-note">🔒 Pesanan diproses admin. Harga akhir dan ketersediaan nominal dikonfirmasi melalui WhatsApp sebelum pembayaran.</div>
+</section>
 
-    <div class="digital-field">
-      <span>Pilih Nominal</span>
-      <div class="topup-grid">
-        <button class="topup-option" data-amount="10000" onclick="selectTopup(this)">Rp10.000</button>
-        <button class="topup-option" data-amount="20000" onclick="selectTopup(this)">Rp20.000</button>
-        <button class="topup-option" data-amount="25000" onclick="selectTopup(this)">Rp25.000</button>
-        <button class="topup-option" data-amount="50000" onclick="selectTopup(this)">Rp50.000</button>
-        <button class="topup-option" data-amount="100000" onclick="selectTopup(this)">Rp100.000</button>
-        <button class="topup-option" data-amount="200000" onclick="selectTopup(this)">Rp200.000</button>
+<!-- =========================
+     IKLAN PRODUK — 2 SLIDE
+========================= -->
+<section class="product-ad-slider" id="productAdSlider">
+  <div class="product-ad-track">
+    <article class="product-ad-slide active">
+      <div class="product-ad-copy">
+        <span class="product-ad-label">🔥 NEW ARRIVAL</span>
+        <span class="product-ad-small">MYKONOS</span>
+        <h2>California Club<br><strong>Extrait De Parfum</strong></h2>
+        <p>Wangi fresh, elegan, dan cocok dipakai kapan saja.</p>
+        <div class="product-ad-price"><b>Rp220.000</b> <del>Rp309.000</del></div>
+        <button onclick="openFeaturedProduct(19)">BELI SEKARANG →</button>
       </div>
-    </div>
-
-    <button class="digital-submit" onclick="orderTopup()">💬 Pesan Top Up via WhatsApp</button>
+      <button class="product-ad-photo" type="button" onclick="openFeaturedProduct(19)" aria-label="Lihat Mykonos California Club">
+        <span class="product-ad-sale">-23%</span><img src="iklan1.jpg" alt="Mykonos California Club Extrait De Parfum 50ml">
+      </button>
+    </article>
+    <article class="product-ad-slide">
+      <div class="product-ad-copy">
+        <span class="product-ad-label vanilla">✨ FAVORIT BARU</span>
+        <span class="product-ad-small">MYKONOS</span>
+        <h2>Bonfire Vanilla<br><strong>Extrait De Parfum</strong></h2>
+        <p>Aroma vanilla yang manis dan hangat untuk melengkapi koleksi parfum kamu.</p>
+        <div class="product-ad-price"><b>Rp159.000</b> <del>Rp229.000</del></div>
+        <button class="dark" onclick="openFeaturedProduct(20)">LIHAT PRODUK →</button>
+      </div>
+      <button class="product-ad-photo" type="button" onclick="openFeaturedProduct(20)" aria-label="Lihat Mykonos Bonfire Vanilla">
+        <span class="product-ad-sale coming">-23%</span><img src="iklan2.jpg" alt="Mykonos Bonfire Vanilla Extrait De Parfum 50ml">
+      </button>
+    </article>
   </div>
-
-  <div class="digital-note">🔒 Pesanan diproses admin. Harga akhir/biaya layanan dikonfirmasi lewat WhatsApp sebelum pembayaran.</div>
+  <button class="product-ad-arrow prev" type="button" onclick="changeProductAd(-1)" aria-label="Slide sebelumnya">‹</button>
+  <button class="product-ad-arrow next" type="button" onclick="changeProductAd(1)" aria-label="Slide berikutnya">›</button>
+  <div class="product-ad-dots"><button class="product-ad-dot active" onclick="goProductAd(0)" aria-label="Iklan 1"></button><button class="product-ad-dot" onclick="goProductAd(1)" aria-label="Iklan 2"></button></div>
 </section>
 
 <!-- =========================
@@ -214,6 +207,29 @@
   <div class="products" id="produk"></div>
 </section>
 
+
+
+<!-- =========================
+     FITUR TAMBAHAN — VOUCHER, REKOMENDASI & WISHLIST
+========================= -->
+<section class="smart-tools">
+  <div class="smart-head"><div><span class="smart-kicker">✨ FITUR BARU</span><h2>Belanja Makin Enak</h2><p>Voucher, wishlist, dan rekomendasi khusus buat kamu.</p></div></div>
+  <div class="smart-actions">
+    <button onclick="openWishlistModal()">❤️ <b>Wishlist</b><small id="wishlistCountText">0 produk tersimpan</small></button>
+    <button onclick="openTrackingModal()">📦 <b>Cek Pesanan</b><small>Lihat status pesanan</small></button>
+    <button onclick="scrollToRecommendations()">🎯 <b>Rekomendasi</b><small>Pilihan buat kamu</small></button>
+  </div>
+</section>
+
+<section class="recommend-section" id="recommendSection">
+  <div class="section-title-row"><div><span class="smart-kicker">🎯 PILIHAN UNTUKMU</span><h2>Rekomendasi Untuk Kamu</h2></div></div>
+  <div class="products recommendation-products" id="recommendProducts"></div>
+</section>
+
+<section class="wishlist-strip">
+  <div><b>❤️ Wishlist kamu</b><span>Simpan parfum incaran biar nggak lupa.</span></div>
+  <button onclick="openWishlistModal()">Lihat Wishlist →</button>
+</section>
 
 <!-- =========================
      SEKSI ULASAN & TESTIMONI FOTO
@@ -329,6 +345,20 @@
         <option value="POS Indonesia">Kurir: Lokal (opsional admin)</option>
         <option value="Ambil Offline (MIFKHOR)">Ambil Langsung di MIFKHOR</option>
       </select>
+      <select id="buyerPayment" class="cart-input">
+        <option value="QRIS">Pembayaran: QRIS</option>
+        <option value="DANA">Pembayaran: DANA</option>
+        <option value="OVO">Pembayaran: OVO</option>
+        <option value="ShopeePay">Pembayaran: ShopeePay</option>
+        <option value="Transfer Bank">Pembayaran: Transfer Bank</option>
+        <option value="Cash / Offline">Pembayaran: Cash / Offline</option>
+      </select>
+      <div class="voucher-box">
+        <input id="voucherInput" type="text" placeholder="Kode voucher:" class="cart-input">
+        <button type="button" onclick="applyVoucher()">Pakai</button>
+      </div>
+      <div id="voucherResult" class="voucher-result"></div>
+      <div id="discountLine" class="discount-line" style="display:none;"><span>Diskon Voucher</span><b id="discountAmount">Rp0</b></div>
     </div>
 
     <button class="checkout" onclick="checkout()">
@@ -425,6 +455,32 @@
 </div>
 
 
+
+<!-- =========================
+     MODAL WISHLIST
+========================= -->
+<div class="modal-overlay" id="wishlistModal" onclick="closeWishlistModalOutside(event)">
+  <div class="modal-box feature-modal">
+    <button class="modal-close" onclick="closeWishlistModal()">×</button>
+    <h3>❤️ Wishlist Saya</h3>
+    <p class="modal-subtext">Produk yang kamu simpan akan tetap tersimpan di perangkat ini.</p>
+    <div id="wishlistModalBody"></div>
+  </div>
+</div>
+
+<!-- =========================
+     MODAL TRACKING PESANAN
+========================= -->
+<div class="modal-overlay" id="trackingModal" onclick="closeTrackingModalOutside(event)">
+  <div class="modal-box feature-modal">
+    <button class="modal-close" onclick="closeTrackingModal()">×</button>
+    <h3>📦 Cek Status Pesanan</h3>
+    <p class="modal-subtext">Masukkan kode pesanan yang muncul saat checkout.</p>
+    <div class="tracking-search"><input id="trackingCodeInput" placeholder="Contoh: NS-ABC123"><button onclick="trackOrder()">Cek</button></div>
+    <div id="trackingResult"></div>
+  </div>
+</div>
+
 <!-- =========================
      BOTTOM NAV
 ========================= -->
@@ -438,6 +494,9 @@
   <div class="nav-item" onclick="openCart()">
     <span class="nav-icon">🛒</span> Keranjang
   </div>
+  <div class="nav-item" onclick="openWishlistModal()">
+    <span class="nav-icon">❤️</span> Wishlist
+  </div>
 </nav>
 
 
@@ -449,6 +508,6 @@
 </div>
 
 <!-- Panggil File JavaScript Terpisah -->
-<script src="script.js"></script>
+<script src="script.js?v=20260926-v2"></script>
 </body>
 </html>
