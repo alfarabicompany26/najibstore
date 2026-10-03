@@ -7,6 +7,14 @@
 
 <!-- Panggil File CSS Terpisah -->
 <link rel="stylesheet" href="style.css">
+<style>
+/* FIX: Bottom navigation tetap tampil di tablet & desktop. */
+@media (min-width: 768px) {
+  .bottom-nav {
+    display: flex !important;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -145,7 +153,7 @@
         <span class="product-ad-label">🔥 NEW ARRIVAL</span>
         <span class="product-ad-small">MYKONOS</span>
         <h2>California Club<br><strong>Extrait De Parfum</strong></h2>
-        <p>Wangi fresh, elegan, dan cocok dipakai kapan saja.</p>
+        <p>Wangi fresh, elegan, dan cocok dipakai kapan saja. Kini TERSEDIA DI NajibStore!.</p>
         <div class="product-ad-price"><b>Rp220.000</b> <del>Rp309.000</del></div>
         <button onclick="openFeaturedProduct(19)">BELI SEKARANG →</button>
       </div>
@@ -155,7 +163,7 @@
     </article>
     <article class="product-ad-slide">
       <div class="product-ad-copy">
-        <span class="product-ad-label vanilla">✨ FAVORIT BARU</span>
+        <span class="product-ad-label vanilla">✨ PRODUK BARU</span>
         <span class="product-ad-small">MYKONOS</span>
         <h2>Bonfire Vanilla<br><strong>Extrait De Parfum</strong></h2>
         <p>Aroma vanilla yang manis dan hangat untuk melengkapi koleksi parfum kamu.</p>
@@ -213,7 +221,7 @@
      FITUR TAMBAHAN — VOUCHER, REKOMENDASI & WISHLIST
 ========================= -->
 <section class="smart-tools">
-  <div class="smart-head"><div><span class="smart-kicker">✨ FITUR BARU</span><h2>Belanja Makin Enak</h2><p>Voucher, wishlist, dan rekomendasi khusus buat kamu.</p></div></div>
+  <div class="smart-head"><div><span class="smart-kicker">✨ FITUR BARU <strong>(BETA VERSION)</strong></span><h2>Belanja Makin Enak</h2><p>Voucher, wishlist, dan rekomendasi khusus buat kamu.</p></div></div>
   <div class="smart-actions">
     <button onclick="openWishlistModal()">❤️ <b>Wishlist</b><small id="wishlistCountText">0 produk tersimpan</small></button>
     <button onclick="openTrackingModal()">📦 <b>Cek Pesanan</b><small>Lihat status pesanan</small></button>
@@ -342,7 +350,7 @@
       <select id="buyerCourier" class="cart-input">
         <option value="J&T Express">Kurir: J&T Express (belum tersedia)</option>
         <option value="JNE Express">Kurir: JNE (belum tersedia)</option>
-        <option value="POS Indonesia">Kurir: Lokal (opsional admin)</option>
+        <option value="Lokal (opsional)">Kurir: Lokal (opsional admin)</option>
         <option value="Ambil Offline (MIFKHOR)">Ambil Langsung di MIFKHOR</option>
       </select>
       <select id="buyerPayment" class="cart-input">
@@ -463,7 +471,8 @@
   <div class="modal-box feature-modal">
     <button class="modal-close" onclick="closeWishlistModal()">×</button>
     <h3>❤️ Wishlist Saya</h3>
-    <p class="modal-subtext">Produk yang kamu simpan akan tetap tersimpan di perangkat ini.</p>
+    <p class="modal-subtext"><h6>Simpan Produk Favorit dan Incaranmu Disini!</h6></p>
+    <br>
     <div id="wishlistModalBody"></div>
   </div>
 </div>
@@ -474,8 +483,8 @@
 <div class="modal-overlay" id="trackingModal" onclick="closeTrackingModalOutside(event)">
   <div class="modal-box feature-modal">
     <button class="modal-close" onclick="closeTrackingModal()">×</button>
-    <h3>📦 Cek Status Pesanan</h3>
-    <p class="modal-subtext">Masukkan kode pesanan yang muncul saat checkout.</p>
+    <h3>📦 Cek Status Pesanan (v.BETA)</h3>
+    <p class="modal-subtext"><h6>Masukkan kode pesanan yang muncul saat checkout.</h6></p>
     <div class="tracking-search"><input id="trackingCodeInput" placeholder="Contoh: NS-ABC123"><button onclick="trackOrder()">Cek</button></div>
     <div id="trackingResult"></div>
   </div>
@@ -508,6 +517,6 @@
 </div>
 
 <!-- Panggil File JavaScript Terpisah -->
-<script src="script.js?v=20260926-v2"></script>
+<script src="script.js?v=20261003-wishlist-nav-fix"></script>
 </body>
 </html>

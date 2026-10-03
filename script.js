@@ -312,8 +312,11 @@ const products = [
 ];
 
 let cart = [];
-let wishlist = JSON.parse(localStorage.getItem("najib_wishlist")) || [];
+let wishlist = (JSON.parse(localStorage.getItem("najib_wishlist")) || [])
+  .map(Number)
+  .filter(Number.isFinite);
 let currentCategory = "Semua";
+localStorage.setItem("najib_wishlist", JSON.stringify(wishlist));
 
 
 /* ==================================================
@@ -402,6 +405,9 @@ function displayProducts(list){
    TOGGLE WISHLIST (FAVORIT)
 ================================================== */
 function toggleWishlist(id) {
+  id = Number(id);
+  if (!Number.isFinite(id)) return;
+
   if (wishlist.includes(id)) {
     wishlist = wishlist.filter(favId => favId !== id);
     showToastText(`Dihapus dari favorit ${EMOJI.whiteHeart}`);
@@ -409,9 +415,11 @@ function toggleWishlist(id) {
     wishlist.push(id);
     showToastText(`Disimpan ke favorit ${EMOJI.heart}`);
   }
-  
+
   localStorage.setItem("najib_wishlist", JSON.stringify(wishlist));
   searchProduct();
+  renderRecommendations();
+  renderWishlistModal();
 }
 
 
@@ -822,16 +830,12 @@ function renderWishlistModal(){
   if(!fav.length){ c.innerHTML=`<div class="wishlist-empty">❤️<br><b>Wishlist masih kosong</b><small>Tekan ❤️ pada produk yang kamu suka.</small></div>`; return; }
   c.innerHTML=`<div class="wishlist-grid">${fav.map(p=>`<div class="wishlist-item">
     <img src="${p.image}" alt="${p.name}"><div class="wishlist-info"><b>${p.name}</b><strong>${rupiah(p.price)}</strong><small>${p.isSoldOut?'Stok habis':'★ '+p.rating+' • '+p.sold+' terjual'}</small>
-    <div class="wishlist-actions"><button onclick="openProductModal(${p.id})">Lihat</button>${p.isSoldOut?'':'<button onclick="addToCart('+p.id+')">+ Keranjang</button>'}<button class="danger" onclick="toggleWishlist('+p.id+');renderWishlistModal()">Hapus</button></div></div></div>`).join("")}</div>`;
+    <div class="wishlist-actions"><button onclick="openProductModal(${p.id})">Lihat</button>${p.isSoldOut?'':'<button onclick="addToCart('+p.id+')">+ Keranjang</button>'}<button class="danger" type="button" onclick="toggleWishlist(${p.id})">Hapus</button></div></div></div>`).join("")}</div>`;
 }
 function openWishlistModal(){ renderWishlistModal(); document.getElementById("wishlistModal").classList.add("show"); checkLockScroll(); }
 function closeWishlistModal(){ document.getElementById("wishlistModal").classList.remove("show"); checkLockScroll(); }
 function closeWishlistModalOutside(e){ if(e.target.id==="wishlistModal") closeWishlistModal(); }
 function scrollToRecommendations(){ document.getElementById("recommendSection")?.scrollIntoView({behavior:"smooth"}); }
-
-/* Wishlist override: update every smart component too */
-const _toggleWishlistOriginal=toggleWishlist;
-toggleWishlist=function(id){ _toggleWishlistOriginal(id); renderRecommendations(); renderWishlistModal(); };
 
 /* ==================================================
    TRACKING PESANAN LOKAL
@@ -847,7 +851,7 @@ function closeTrackingModalOutside(e){ if(e.target.id==="trackingModal") closeTr
 function trackOrder(){
   const code=(document.getElementById("trackingCodeInput").value||"").trim().toUpperCase();
   const result=document.getElementById("trackingResult"); const order=orderHistory.find(o=>o.code===code);
-  if(!order){ result.innerHTML=`<div class="tracking-empty">❓ Kode pesanan tidak ditemukan di perangkat ini.</div>`; return; }
+  if(!order){ result.innerHTML=`<div class="tracking-empty">❓ Kode pesanan tidak ditemukan.</div>`; return; }
   result.innerHTML=`<div class="tracking-card"><div class="tracking-code">${order.code}</div><div class="tracking-status">🟡 ${order.status}</div><p>Total pesanan: <b>${rupiah(order.total)}</b></p><small>Dibuat: ${new Date(order.createdAt).toLocaleString('id-ID')}</small><div class="tracking-steps"><span class="done">✓ Pesanan dibuat</span><span class="current">● Menunggu konfirmasi admin</span><span>○ Diproses</span><span>○ Dikirim / selesai</span></div></div>`;
 }
 
